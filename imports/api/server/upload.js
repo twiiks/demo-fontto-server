@@ -4,18 +4,22 @@
 
 import AWS from 'aws-sdk';
 import moment from 'moment';
+import Future from 'fibers/future';
 
-const s3 = new AWS.S3();
+const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
 const bucketName = 'fontto';
 const params = {
     Bucket: bucketName,
-    ACL:'public-read'
+    ACL: 'public-read'
 };
 
 Meteor.methods({
+    uploadToS3: function (fileType, fileBase64) {
 
-    'uploadToS3': function (fileType, fileBase64) {
-
+        const f = new Future();
         let fileBuffer = new Buffer
         (fileBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
 
@@ -27,14 +31,15 @@ Meteor.methods({
         params.Body = fileBuffer;
 
         const putObjectPromise = s3.putObject(params).promise();
-        putObjectPromise.then(function(data){
+        putObjectPromise.then(function (data) {
             console.log(data);
             console.log('success');
-            return 'OK'
-        }).catch(function(err){
+            return f.return('SUCCESS');
+        }).catch(function (err) {
             console.log(err);
-            throw err;
-        })
+            return f.throw(err);
+        });
 
+        return f.wait();
     }
 });

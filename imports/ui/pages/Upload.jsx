@@ -29,8 +29,10 @@ export class Upload extends Component {
         Meteor.call('uploadToS3',
             this.state.file.type,
             this.state.fileBase64,
-            function (err, ok) {
-                if (err) {
+            function (error, result) {
+                console.log(error);
+                console.log(result);
+                if (error) {
                     alert('error!!');
                 } else {
                     alert('uploaded!!');
