@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 
+import {Loading} from '../components/Loading';
+
 export class Upload extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: false,
             file: '',
             fileBase64: ''
         };
@@ -26,23 +29,25 @@ export class Upload extends Component {
 
     onImageSubmit(e) {
         e.preventDefault();
+        this.setState({loading: true});
         Meteor.call('uploadToS3',
             this.state.file.type,
             this.state.fileBase64,
             function (error, result) {
-                console.log(error);
-                console.log(result);
                 if (error) {
+                    this.setState({loading: false});
                     alert('error!!');
                 } else {
+                    this.setState({loading: false});
                     alert('uploaded!!');
                 }
-            });
+            }.bind(this));
     }
 
     render() {
         return (
             <div className="upload">
+                <Loading on={this.state.loading}/>
                 <header>
                     <h1>Upload Demo</h1>
                 </header>
