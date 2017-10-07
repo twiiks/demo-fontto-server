@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, BrowserRouter, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export class Index extends Component {
     render() {
@@ -10,7 +10,9 @@ export class Index extends Component {
                 </header>
 
                 <ul>
-                    <li><Link to={'/demo/upload'}>폰트만들러 가기</Link></li>
+                    <li><Link to={'/demo/upload'}>
+                        폰트 만들어보러 가기
+                    </Link></li>
                 </ul>
             </div>
         );

@@ -25,6 +25,7 @@ Meteor.startup(() => {
     render(
         <BrowserRouter>
             <App>
+                <Route exact path="/" component={Index}/>
                 <Switch>
                     <Route exact path="/demo" component={Index}/>
                     <Route path="/demo/upload" component={Upload}/>

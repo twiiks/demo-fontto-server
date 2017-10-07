@@ -7,8 +7,7 @@ export class Upload extends Component {
                 <header>
                     <h1>Upload Demo</h1>
                 </header>
-                <input type="file" accept="image/*" capture="camera" />
-
+                <input type="file" accept="image/*"/>
             </div>
         );
     }
