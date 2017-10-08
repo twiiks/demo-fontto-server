@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import {Header} from '../components/Header';
 import {Loading} from '../components/Loading';
 
 export class Upload extends Component {
@@ -47,6 +48,7 @@ export class Upload extends Component {
     render() {
         return (
             <div className="upload">
+                <Header/>
                 <Loading on={this.state.loading}/>
                 <header>
                     <h1>Upload Demo</h1>
