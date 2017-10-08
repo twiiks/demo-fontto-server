@@ -3,8 +3,10 @@ import styled, {keyframes} from 'styled-components';
 
 import FlatButton from 'material-ui/FlatButton';
 
-import {fadeIn} from 'react-animations'
+import {fadeIn, fadeInUp} from 'react-animations'
 const animation_fadeIn = keyframes`${fadeIn}`;
+const animation_fadeInUp = keyframes`${fadeInUp}`;
+
 
 const Background = styled.div`
   background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
@@ -58,7 +60,7 @@ const Description = styled.div`
 const ButtonWrapper = styled.div`
   margin-top: 30px;
   text-align: center;
-  animation: ${animation_fadeIn} 3s linear;
+  animation: ${animation_fadeInUp} 1.0s linear;
 `;
 
 class GoToMakeButton extends Component {

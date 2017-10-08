@@ -13,7 +13,7 @@ export class Header extends Component {
     render() {
         return (
             <HeaderWrapper
-                title="fontto 데모"
+                title="fontto demo"
                 iconElementLeft={
                     <IconButton>
                         <Link to='/'>

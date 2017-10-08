@@ -6,7 +6,7 @@ import {
     ContentWrapper,
     TitleUpper, Title,
     Description,
-    ButtonWrapper, GoToMakeButton, GoToGithubButton,
+    ButtonWrapper, GoToMakeButton,
     Content,
 } from '../styles/pages/IndexStyle';
 
