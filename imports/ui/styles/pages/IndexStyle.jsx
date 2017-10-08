@@ -29,14 +29,12 @@ const Content = styled.div`
 `;
 
 const TitleUpper = styled.div`
-  font-family: ‘Nanum Gothic’ ;
   color: #f5f5f5;
   text-align: center;
   font-size: 16px;
 `;
 
 const Title = styled.div`
-  font-family: ‘Nanum Gothic’ ;
   color: #f5f5f5;
   text-align: center;
   font-size: 60px;
@@ -44,7 +42,6 @@ const Title = styled.div`
 `;
 
 const Description = styled.div`
-  font-family: ‘Nanum Gothic’ ;
   font-weight: 100;
   font-size: 14px;
   color: #f5f5f5;
@@ -61,7 +58,6 @@ class GoToMakeButton extends Component {
     render() {
         return (
             <FlatButton label={this.props.label}
-                        href='/demo/upload'
                         backgroundColor='#f5f5f5'
                         style={{padding: '3px 10px', height: 'auto'}}/>
         )

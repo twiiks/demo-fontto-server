@@ -28,7 +28,9 @@ export class Index extends Component {
                             </Description>
 
                             <ButtonWrapper>
-                                <GoToMakeButton label='폰트 만들기 >'/>
+                                <Link to='/demo/upload'>
+                                    <GoToMakeButton label='폰트 만들기 >'/>
+                                </Link>
                             </ButtonWrapper>
                         </Content>
                     </ContentWrapper>
