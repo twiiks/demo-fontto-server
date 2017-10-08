@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactLoading from 'react-loading';
 import styled from 'styled-components';
 
-const Div = styled.div`
+const LoadingWrapper = styled.div`
     position: fixed;
     left: 50%;
     top: 50%;
@@ -24,9 +24,9 @@ export class Loading extends Component {
             display = 'visible'
         }
         return (
-            <Div display={display}>
+            <LoadingWrapper display={display}>
                 <ReactLoading type='spin' color='#000' height='50' width='50'/>
-            </Div>
+            </LoadingWrapper>
         );
     }
 }
