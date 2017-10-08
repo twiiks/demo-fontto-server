@@ -13,7 +13,7 @@ const Background = styled.div`
   background-position: center;
   height: 100vh;
   width: 100vw;
-  animation: ${animation_fadeIn} .5s linear;
+  // animation: ${animation_fadeIn} .5s linear;
 `;
 
 const ContentWrapper = styled.div`
