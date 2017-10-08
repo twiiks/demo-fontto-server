@@ -30,6 +30,10 @@ export class Upload extends Component {
 
     onImageSubmit(e) {
         e.preventDefault();
+        if(this.state.file === ''){
+            alert('파일을 선택해주세요!');
+            return;
+        }
         this.setState({loading: true});
         Meteor.call('uploadToS3',
             this.state.file.type,
