@@ -16,7 +16,7 @@ export class Header extends Component {
                 title="fontto demo"
                 iconElementLeft={
                     <IconButton>
-                        <Link to='/'>
+                        <Link to={this.props.backLink}>
                             <NavigationBack color='#f5f5f5'/>
                         </Link>
                     </IconButton>}

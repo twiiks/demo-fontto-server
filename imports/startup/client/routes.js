@@ -11,6 +11,8 @@ import {App} from '../../ui/layouts/App'
 // Pages
 import {Index} from '../../ui/pages/Index';
 import {Upload} from '../../ui/pages/Upload';
+import {Email} from '../../ui/pages/Email';
+import {Canvas} from '../../ui/pages/Canvas';
 
 // Authentication
 // const authenticate = (nextState, replace) => {
@@ -30,6 +32,8 @@ Meteor.startup(() => {
                     <Route exact path="/" component={Index}/>
                     <Switch>
                         <Route exact path="/demo" component={Index}/>
+                        <Route exact path="/demo/email" component={Email}/>
+                        <Route exact path="/demo/canvas" component={Canvas}/>
                         <Route path="/demo/upload" component={Upload}/>
                     </Switch>
                 </App>

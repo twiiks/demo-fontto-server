@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styled, {keyframes} from 'styled-components';
 
-import FlatButton from 'material-ui/FlatButton';
+import {FlatButton} from 'material-ui';
 
 import {fadeIn, fadeInUp} from 'react-animations'
 const animation_fadeIn = keyframes`${fadeIn}`;
@@ -63,7 +63,7 @@ const ButtonWrapper = styled.div`
   animation: ${animation_fadeInUp} 1.0s linear;
 `;
 
-class GoToMakeButton extends Component {
+class GoToEmailButton extends Component {
     render() {
         return (
             <FlatButton label={this.props.label}
@@ -73,7 +73,6 @@ class GoToMakeButton extends Component {
     }
 }
 
-
 export {
     Background,
     ContentWrapper,
@@ -81,6 +80,6 @@ export {
     Title,
     Description,
     ButtonWrapper,
-    GoToMakeButton,
+    GoToEmailButton,
     Content
 };
