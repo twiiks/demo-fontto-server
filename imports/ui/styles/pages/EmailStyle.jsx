@@ -4,6 +4,7 @@ import styled, {keyframes} from 'styled-components';
 import {RaisedButton, TextField} from 'material-ui';
 
 import {fadeInRight} from 'react-animations'
+
 const animation_fadeInRight = keyframes`${fadeInRight}`;
 
 const Background = styled.div`
@@ -46,17 +47,33 @@ const SubTitle = styled.div`
   font-size: 12px;
 `;
 
-class GoToMakeButton extends Component {
+class GoToCanvasMakeButton extends Component {
     render() {
         return (
             <RaisedButton fullWidth={true}
-                        label={this.props.label}
-                        backgroundColor='#f5f5f5'
-                        style={{
-                            marginTop: '20px'}}/>
+                          label={this.props.label}
+                          backgroundColor='#f5f5f5'
+                          style={{
+                              marginTop: '20px'
+                          }}/>
         )
     }
 }
+
+class GoToUploadMakeButton extends Component {
+    render() {
+        return (
+            <RaisedButton disabled={true}
+                          fullWidth={true}
+                          label={this.props.label}
+                          backgroundColor='#f5f5f5'
+                          style={{
+                              marginTop: '20px'
+                          }}/>
+        )
+    }
+}
+
 
 class EmailTextField extends Component {
     render() {
@@ -78,5 +95,6 @@ export {
     ContentWrapper,
     Content, Title, SubTitle,
     EmailTextField,
-    GoToMakeButton
+    GoToCanvasMakeButton,
+    GoToUploadMakeButton
 };

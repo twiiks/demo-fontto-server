@@ -8,7 +8,8 @@ import {
     ContentWrapper,
     Content, Title, SubTitle,
     EmailTextField,
-    GoToMakeButton
+    GoToCanvasMakeButton,
+    GoToUploadMakeButton
 } from '../styles/pages/EmailStyle';
 
 
@@ -27,8 +28,11 @@ export class Email extends Component {
                             </SubTitle>
                             <EmailTextField/>
                             <Link to='/demo/canvas'>
-                                <GoToMakeButton label='시작하기'/>
+                                <GoToCanvasMakeButton label='글자 작성으로 시작하기'/>
                             </Link>
+                            {/*<Link to='/demo/upload'>*/}
+                                <GoToUploadMakeButton label='이미지 업로드로 시작하기'/>
+                            {/*</Link>*/}
                         </Content>
                     </ContentWrapper>
                 </Background>
