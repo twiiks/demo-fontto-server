@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+
 import styled, {keyframes} from 'styled-components';
 
 import {RaisedButton, TextField} from 'material-ui';
@@ -50,7 +52,8 @@ const SubTitle = styled.div`
 class GoToCanvasMakeButton extends Component {
     render() {
         return (
-            <RaisedButton fullWidth={true}
+            <RaisedButton onClick={this.props.onClick}
+                          fullWidth={true}
                           label={this.props.label}
                           backgroundColor='#f5f5f5'
                           style={{
@@ -79,6 +82,7 @@ class EmailTextField extends Component {
     render() {
         return (
             <TextField
+                onChange={this.props.onChange}
                 style={{marginTop: '10px', width: '100%'}}
                 hintText="fontto@twiiks.co"
                 hintStyle={{color: '#cccccc'}}

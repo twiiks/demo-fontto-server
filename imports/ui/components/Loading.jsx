@@ -11,6 +11,7 @@ const LoadingWrapper = styled.div`
     width: 50px;
     height: 50px;
     visibility: ${(props) => props.display};
+    z-index: 999;
 `;
 
 export class Loading extends Component {
