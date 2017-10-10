@@ -33,7 +33,7 @@ export class CanvasComponent extends Component {
         ctx.strokeStyle = '#222222';
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
-        ctx.lineWidth = 6;
+        ctx.lineWidth = 12;
     }
 
     onMouseDown(e) {

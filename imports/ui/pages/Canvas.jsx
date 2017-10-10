@@ -68,7 +68,7 @@ export class Canvas extends Component {
                     </String>
 
                     <CanvasWrapper>
-                        <CanvasComponent width={this.state.width - 20}
+                        <CanvasComponent width={this.state.height - 210}
                                          height={this.state.height - 210}
                                          ref='canvasComponent'/>
                     </CanvasWrapper>
