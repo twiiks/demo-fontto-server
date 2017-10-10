@@ -3,25 +3,26 @@ import React, {Component} from 'react';
 import styled, {keyframes} from 'styled-components';
 import {RaisedButton} from 'material-ui';
 
-import {fadeIn, fadeInUp} from 'react-animations'
-
-const animation_fadeIn = keyframes`${fadeIn}`;
-const animation_fadeInUp = keyframes`${fadeInUp}`;
+import {fadeInRight} from 'react-animations'
+const animation_fadeInRight = keyframes`${fadeInRight}`;
 
 const Title = styled.div`
   color: #333333;
   margin: 10px;
   font-size: 25px;
+  animation: ${animation_fadeInRight} .3s linear;
 `;
 
 const SubDesc = styled.span`
   font-size: 12px;
   margin-left: 5px;
-  color: #cccccc
+  color: #cccccc;
+  animation: ${animation_fadeInRight} .3s linear;
 `;
 
 const String = styled.div`
   text-align: center;
+  animation: ${animation_fadeInRight} .3s linear;
 `;
 
 const C = styled.span`
@@ -49,7 +50,7 @@ class HandwriteSubmitButton extends Component {
             <RaisedButton fullWidth={true}
                           label={this.props.label}
                           backgroundColor='#f5f5f5'
-                          onClick={this.props.onClick}/>
+                          onTouchEnd={this.props.onTouchEnd}/>
         )
     }
 }
@@ -59,5 +60,5 @@ export {
     String, C,
     HandwriteSubmitButton,
     HandwriteSubmitButtonWrapper,
-    CanvasWrapper
+    CanvasWrapper,
 };

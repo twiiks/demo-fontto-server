@@ -2,6 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import React from 'react';
 import {render} from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import {Route, BrowserRouter, Switch} from 'react-router-dom';
 
@@ -25,6 +26,7 @@ import {Canvas} from '../../ui/pages/Canvas';
 // };
 
 Meteor.startup(() => {
+    injectTapEventPlugin();
     render(
         <BrowserRouter>
             <MuiThemeProvider>

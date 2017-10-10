@@ -33,7 +33,7 @@ export class CanvasComponent extends Component {
         ctx.strokeStyle = '#222222';
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 6;
     }
 
     onMouseDown(e) {
@@ -50,8 +50,11 @@ export class CanvasComponent extends Component {
             ctx.beginPath();
             ctx.moveTo(this.state.lastX, this.state.lastY);
             if (e.touches) {
-                const pointX = e.touches[0].clientX - 10;
-                const pointY = e.touches[0].clientY - 150;
+                // console.log(e.touches[0].clientX);
+                // console.log(e.touches[0].clientY);
+                const offset = e.target.getBoundingClientRect();
+                const pointX = e.touches[0].clientX - offset.x;
+                const pointY = e.touches[0].clientY - offset.y;
                 ctx.lineTo(pointX, pointY);
                 ctx.stroke();
                 this.setState({
@@ -71,14 +74,15 @@ export class CanvasComponent extends Component {
         }
     }
 
-    clearCanvas(){
-        this.ctx().clearRect(0, 0, this.canvas().width, this.canvas().height);
+    clearCanvas() {
+        this.ctx().clearRect(0, 0, this.canvas().width,
+            this.canvas().height);
     }
 
     render() {
         return (
             <div>
-                <DrawingCanvas id="draw"
+                <DrawingCanvas id='draw' ref='drawingCanvas'
                                width={this.props.width}
                                height={this.props.height}
 
