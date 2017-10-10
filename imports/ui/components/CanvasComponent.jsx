@@ -36,6 +36,7 @@ export class CanvasComponent extends Component {
     }
 
     onMouseDown(e) {
+        console.log('mouse down');
         this.setState({
             isDrawing: true,
             lastX: e.nativeEvent.offsetX,
@@ -48,12 +49,25 @@ export class CanvasComponent extends Component {
         if (this.state.isDrawing) {
             ctx.beginPath();
             ctx.moveTo(this.state.lastX, this.state.lastY);
-            ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-            ctx.stroke();
-            this.setState({
-                lastX: e.nativeEvent.offsetX,
-                lastY: e.nativeEvent.offsetY
-            });
+            if (e.touches) {
+                const pointX = e.touches[0].clientX - 10;
+                const pointY = e.touches[0].clientY - 150;
+                ctx.lineTo(pointX, pointY);
+                ctx.stroke();
+                this.setState({
+                    lastX: pointX,
+                    lastY: pointY
+                });
+            } else {
+                ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+                ctx.stroke();
+                this.setState({
+                    lastX: e.nativeEvent.offsetX,
+                    lastY: e.nativeEvent.offsetY
+                });
+            }
+
+
         }
     }
 
@@ -63,6 +77,11 @@ export class CanvasComponent extends Component {
                 <DrawingCanvas id="draw"
                                width={this.props.width}
                                height={this.props.height}
+
+                               onTouchStart={this.onMouseDown}
+                               onTouchMove={this.draw}
+                               onTouchEnd={() => this.setState({isDrawing: false})}
+
                                onMouseMove={this.draw}
                                onMouseDown={this.onMouseDown}
                                onMouseUp={() => this.setState({isDrawing: false})}
