@@ -14,6 +14,12 @@ const Title = styled.div`
   font-size: 25px;
 `;
 
+const SubDesc = styled.span`
+  font-size: 12px;
+  margin-left: 5px;
+  color: #cccccc
+`;
+
 const String = styled.div`
   text-align: center;
 `;
@@ -42,13 +48,14 @@ class HandwriteSubmitButton extends Component {
         return (
             <RaisedButton fullWidth={true}
                           label={this.props.label}
-                          backgroundColor='#f5f5f5'/>
+                          backgroundColor='#f5f5f5'
+                          onClick={this.props.onClick}/>
         )
     }
 }
 
 export {
-    Title,
+    Title, SubDesc,
     String, C,
     HandwriteSubmitButton,
     HandwriteSubmitButtonWrapper,

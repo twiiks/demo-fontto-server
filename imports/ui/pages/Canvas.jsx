@@ -5,7 +5,7 @@ import {Header} from '../components/Header';
 import {BackgroundWhite} from "../styles/CommonStyle";
 import {CanvasComponent} from "../components/CanvasComponent";
 import {
-    Title, String, C, CanvasWrapper, HandwriteSubmitButton,
+    Title, SubDesc, String, C, CanvasWrapper, HandwriteSubmitButton,
     HandwriteSubmitButtonWrapper
 } from "../styles/pages/CanvasStyle";
 
@@ -14,10 +14,13 @@ export class Canvas extends Component {
         super(props);
         this.state = {
             width: 0,
-            height: 0
+            height: 0,
+            currentChar: 0
         };
         this.updateWindowDimensions =
             this.updateWindowDimensions.bind(this);
+        this.onHandWriteSubmitButton =
+            this.onHandWriteSubmitButton.bind(this);
 
     }
 
@@ -34,24 +37,45 @@ export class Canvas extends Component {
         this.setState({width: window.innerWidth, height: window.innerHeight});
     }
 
+    onHandWriteSubmitButton() {
+        this.refs.canvasComponent.clearCanvas();
+        if (this.state.currentChar === 8) {
+            alert('마지막 글자입니다!');
+            return;
+        }
+        this.setState({currentChar: this.state.currentChar + 1});
+    }
+
     render() {
+        const spanList = ['', '', '', '', '', '', '', '', ''];
+        spanList[this.state.currentChar] = 'red';
+
         return (
             <div className="index">
                 <BackgroundWhite>
                     <Header backLink='/demo/email'/>
-                    <Title>폰트 만들기</Title>
+                    <Title>폰트 만들기<SubDesc> 한글자씩 작성하고 버튼을 눌러주세요.</SubDesc></Title>
                     <String>
-                        <C>누</C><C>돌</C><C>굶</C>
-                        <C>배</C><C>셍</C><C>잻</C>
-                        <C>취</C><C>킝</C><C>휅</C>
+                        <C color={spanList[0]}>누</C>
+                        <C color={spanList[1]}>돌</C>
+                        <C color={spanList[2]}>굶</C>
+                        <C color={spanList[3]}>배</C>
+                        <C color={spanList[4]}>셍</C>
+                        <C color={spanList[5]}>잻</C>
+                        <C color={spanList[6]}>취</C>
+                        <C color={spanList[7]}>킝</C>
+                        <C color={spanList[8]}>휅</C>
                     </String>
 
                     <CanvasWrapper>
                         <CanvasComponent width={this.state.width - 20}
-                                         height={this.state.height - 210}/>
+                                         height={this.state.height - 210}
+                                         ref='canvasComponent'/>
                     </CanvasWrapper>
                     <HandwriteSubmitButtonWrapper>
-                        <HandwriteSubmitButton label='다음 글자 작성하기'/>
+                        <HandwriteSubmitButton
+                            label='다음 글자 작성하기'
+                            onClick={this.onHandWriteSubmitButton}/>
                     </HandwriteSubmitButtonWrapper>
                 </BackgroundWhite>
             </div>

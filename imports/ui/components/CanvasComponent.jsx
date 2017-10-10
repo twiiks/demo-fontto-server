@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const DrawingCanvas = styled.canvas`
   border: 1px solid #444444;
+  background-color: #ffffff;
 `;
 
 export class CanvasComponent extends Component {
@@ -36,7 +37,6 @@ export class CanvasComponent extends Component {
     }
 
     onMouseDown(e) {
-        console.log('mouse down');
         this.setState({
             isDrawing: true,
             lastX: e.nativeEvent.offsetX,
@@ -69,6 +69,10 @@ export class CanvasComponent extends Component {
 
 
         }
+    }
+
+    clearCanvas(){
+        this.ctx().clearRect(0, 0, this.canvas().width, this.canvas().height);
     }
 
     render() {
