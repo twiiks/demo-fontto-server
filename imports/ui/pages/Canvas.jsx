@@ -81,7 +81,6 @@ export class Canvas extends Component {
                     <HandwriteSubmitButtonWrapper>
                         <HandwriteSubmitButton
                             label='다음 글자 작성하기'
-                            onTouchEnd={this.onHandWriteSubmitButton}
                             onClick={this.onHandWriteSubmitButton}/>
                     </HandwriteSubmitButtonWrapper>
                 </BackgroundWhite>

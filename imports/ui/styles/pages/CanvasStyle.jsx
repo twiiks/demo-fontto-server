@@ -49,7 +49,6 @@ class HandwriteSubmitButton extends Component {
             <RaisedButton fullWidth={true}
                           label={this.props.label}
                           backgroundColor='#f5f5f5'
-                          onTouchEnd={this.props.onTouchEnd}
                           onClick={this.props.onClick}/>
         )
     }
