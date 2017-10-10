@@ -3,10 +3,9 @@ import React, {Component} from 'react';
 import {Header} from '../components/Header';
 import {Loading} from '../components/Loading';
 
+import {BackgroundWhite, Content, ContentWrapper} from "../styles/CommonStyle";
 import {
-    Background,
-    ContentWrapper,
-    Content, Title, SubTitle,
+    Title, SubTitle,
     EmailTextField,
     GoToCanvasMakeButton,
     GoToUploadMakeButton
@@ -67,9 +66,9 @@ export class Email extends Component {
         return (
             <div className="index">
                 <Loading on={this.state.loading}/>
-                <Background>
+                <BackgroundWhite>
                     <Header backLink='/demo'/>
-                    <ContentWrapper>
+                    <ContentWrapper  animationTime={.3}>
                         <Content>
                             <Title>메일주소 등록하기</Title>
                             <SubTitle>
@@ -86,7 +85,7 @@ export class Email extends Component {
                                 label='이미지 업로드로 시작하기 (준비중입니다.)'/>
                         </Content>
                     </ContentWrapper>
-                </Background>
+                </BackgroundWhite>
             </div>
         );
     }

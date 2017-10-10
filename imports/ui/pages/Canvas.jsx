@@ -1,13 +1,22 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 
 import {Header} from '../components/Header';
 
+import {BackgroundWhite} from "../styles/CommonStyle";
+
 export class Canvas extends Component {
+    constructor(props){
+        super(props);
+    }
+
     render() {
+
+        console.log(Meteor.userId());
         return (
             <div className="index">
-                <Header backLink='/demo/email'/>
+                <BackgroundWhite>
+                    <Header backLink='/demo/email'/>
+                </BackgroundWhite>
             </div>
         );
     }

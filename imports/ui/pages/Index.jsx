@@ -1,22 +1,24 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
+import {BackgroundBlack, Content, ContentWrapper} from "../styles/CommonStyle";
 import {
-    Background,
-    ContentWrapper,
     TitleUpper, Title,
     Description,
-    ButtonWrapper, GoToEmailButton,
-    Content,
+    ButtonWrapper, GoToEmailButton
 } from '../styles/pages/IndexStyle';
 
-
 export class Index extends Component {
+    constructor(props) {
+        super(props);
+        Meteor.logout(); // 페이지 들어가면 로그아웃
+    }
+
     render() {
         return (
             <div className="index">
-                <Background>
-                    <ContentWrapper>
+                <BackgroundBlack>
+                    <ContentWrapper animationTime={0}>
                         <Content>
                             <TitleUpper>create your creativity</TitleUpper>
                             <Title>fontto</Title>
@@ -33,7 +35,7 @@ export class Index extends Component {
                             </ButtonWrapper>
                         </Content>
                     </ContentWrapper>
-                </Background>
+                </BackgroundBlack>
             </div>
         );
     }

@@ -1,37 +1,11 @@
 import React, {Component} from 'react';
-import styled, {keyframes} from 'styled-components';
 
+import styled, {keyframes} from 'styled-components';
 import {FlatButton} from 'material-ui';
 
 import {fadeIn, fadeInUp} from 'react-animations'
 const animation_fadeIn = keyframes`${fadeIn}`;
 const animation_fadeInUp = keyframes`${fadeInUp}`;
-
-
-const Background = styled.div`
-  background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
-  url('/images/demo_background.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  width: 100vw;
-  // animation: ${animation_fadeIn} .5s linear;
-`;
-
-const ContentWrapper = styled.div`
-  display: table;
-  position: absolute;
-  width: 80%;
-  left: 10%;
-  top: 10%;
-  bottom: 10%;
-  height: 80%;
-`;
-
-const Content = styled.div`
-  display: table-cell; 
-  vertical-align: middle;
-`;
 
 const TitleUpper = styled.div`
   color: #f5f5f5;
@@ -74,12 +48,9 @@ class GoToEmailButton extends Component {
 }
 
 export {
-    Background,
-    ContentWrapper,
     TitleUpper,
     Title,
     Description,
     ButtonWrapper,
-    GoToEmailButton,
-    Content
+    GoToEmailButton
 };
