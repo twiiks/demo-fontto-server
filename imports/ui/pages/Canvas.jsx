@@ -50,8 +50,8 @@ export class Canvas extends Component {
         let spanList = ['', '', '', '', '', '', '', '', ''];
         spanList[this.state.currentChar] = 'red';
 
-        let canvasSize = this.state.height - 210;
-        if (this.state.height - 210 > this.state.width - 20) {
+        let canvasSize = this.state.height - 220;
+        if (this.state.height - 220 > this.state.width - 20) {
             canvasSize = this.state.width - 20;
         }
 

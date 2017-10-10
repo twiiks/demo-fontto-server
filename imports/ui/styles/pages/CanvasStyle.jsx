@@ -38,11 +38,9 @@ const CanvasWrapper = styled.div`
 `;
 
 const HandwriteSubmitButtonWrapper = styled.div`
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
- 
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 class HandwriteSubmitButton extends Component {
