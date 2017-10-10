@@ -4,6 +4,7 @@ import styled, {keyframes} from 'styled-components';
 import {RaisedButton} from 'material-ui';
 
 import {fadeInRight} from 'react-animations'
+
 const animation_fadeInRight = keyframes`${fadeInRight}`;
 
 const Title = styled.div`
@@ -50,7 +51,8 @@ class HandwriteSubmitButton extends Component {
             <RaisedButton fullWidth={true}
                           label={this.props.label}
                           backgroundColor='#f5f5f5'
-                          onTouchEnd={this.props.onTouchEnd}/>
+                          onTouchEnd={this.props.onTouchEnd}
+                          onClick={this.props.onClick}/>
         )
     }
 }
