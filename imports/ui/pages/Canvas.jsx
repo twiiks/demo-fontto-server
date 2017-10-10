@@ -47,8 +47,14 @@ export class Canvas extends Component {
     }
 
     render() {
-        const spanList = ['', '', '', '', '', '', '', '', ''];
+        let spanList = ['', '', '', '', '', '', '', '', ''];
         spanList[this.state.currentChar] = 'red';
+
+        let canvasSize = this.state.height - 210;
+        if (this.state.height - 210 > this.state.width - 20) {
+            canvasSize = this.state.width - 20;
+        }
+
 
         return (
             <div className="index">
@@ -68,8 +74,8 @@ export class Canvas extends Component {
                     </String>
 
                     <CanvasWrapper>
-                        <CanvasComponent width={this.state.height - 210}
-                                         height={this.state.height - 210}
+                        <CanvasComponent width={canvasSize}
+                                         height={canvasSize}
                                          ref='canvasComponent'/>
                     </CanvasWrapper>
                     <HandwriteSubmitButtonWrapper>
