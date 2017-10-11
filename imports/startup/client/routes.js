@@ -36,7 +36,7 @@ Meteor.startup(() => {
                         <Route exact path="/demo" component={Index}/>
                         <Route exact path="/demo/email" component={Email}/>
                         <Route exact path="/demo/canvas" component={Canvas}/>
-                        <Route path="/demo/upload" component={Upload}/>
+                        {/*<Route path="/demo/upload" component={Upload}/>*/}
                     </Switch>
                 </App>
             </MuiThemeProvider>
