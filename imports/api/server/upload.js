@@ -15,6 +15,7 @@ const params = {
     Bucket: bucketName,
     ACL: 'public-read'
 };
+const environment = process.env.FONTTO_ENV;
 
 Meteor.methods({
     uploadFileToS3: function (fileType, fileBase64) {
@@ -23,7 +24,7 @@ Meteor.methods({
         let fileBuffer = new Buffer
         (fileBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
 
-        let folderName = 'images/' + moment().format('YYYY-MM') + '/';
+        let folderName = environment + '/images/' + moment().format('YYYY-MM') + '/';
         let fileName = moment().format('DD-HH-mm-ss-SSS');
 
         params.Key = folderName + fileName;
@@ -46,11 +47,12 @@ Meteor.methods({
     uploadHandwriteToS3: function (fileBase64, label) {
         const f = new Future();
         let fileBuffer = new Buffer
-        (fileBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+            (fileBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
 
         const userEmail = Meteor.user().emails[0].address;
         const userCount = Meteor.user().profile.count;
-        const folderName = 'handwrites/' + userEmail + '/' + userCount + '/';
+        const folderName = environment + '/handwrites/' + userEmail + '/' + userCount + '/';
+        console.log(folderName);
         const fileName = moment().format('YY-MM-DD-HH-mm-ss-SSS_' + label);
 
         params.Key = folderName + fileName;

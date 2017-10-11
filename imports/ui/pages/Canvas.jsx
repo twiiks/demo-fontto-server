@@ -27,7 +27,6 @@ export class Canvas extends Component {
             this.onHandWriteSubmitButton.bind(this);
 
         Meteor.call('updateCount');
-
     }
 
     componentDidMount() {
@@ -44,10 +43,15 @@ export class Canvas extends Component {
     }
 
     onHandWriteSubmitButton() {
-        // 이미지 S3 에 저장
         let filebase64 = this.refs.canvasComponent.getCanvasBuffer();
-
         this.refs.canvasComponent.clearCanvas();
+
+        if (!Meteor.user()) {
+            alert('로그인 후에 이용해주세요!');
+            this.props.history.push('/demo/email');
+            return;
+        }
+
         if (this.state.currentChar === this.state.string.length) {
             alert('마지막 글자입니다!');
             return;
@@ -69,7 +73,6 @@ export class Canvas extends Component {
         if (this.state.height - 220 > this.state.width - 20) {
             canvasSize = this.state.width - 20;
         }
-
 
         return (
             <div className="index">
