@@ -15,12 +15,18 @@ export class Canvas extends Component {
         this.state = {
             width: 0,
             height: 0,
-            currentChar: 0
+            currentChar: 0,
+            string: [
+                '누', '돌', '굶',
+                '배', '셍', '잻',
+                '취', '킝', '휅',]
         };
         this.updateWindowDimensions =
             this.updateWindowDimensions.bind(this);
         this.onHandWriteSubmitButton =
             this.onHandWriteSubmitButton.bind(this);
+
+        Meteor.call('updateCount');
 
     }
 
@@ -38,12 +44,21 @@ export class Canvas extends Component {
     }
 
     onHandWriteSubmitButton() {
+        // 이미지 S3 에 저장
+        let filebase64 = this.refs.canvasComponent.getCanvasBuffer();
+
         this.refs.canvasComponent.clearCanvas();
-        if (this.state.currentChar === 8) {
+        if (this.state.currentChar === this.state.string.length) {
             alert('마지막 글자입니다!');
             return;
         }
-        this.setState({currentChar: this.state.currentChar + 1});
+        const label = this.state.string[this.state.currentChar];
+
+        Meteor.call('uploadHandwriteToS3', filebase64, label,
+            function (err, res) {
+                this.setState({currentChar: this.state.currentChar + 1});
+            }.bind(this))
+
     }
 
     render() {
@@ -62,15 +77,15 @@ export class Canvas extends Component {
                     <Header backLink='/demo/email'/>
                     <Title>폰트 만들기<SubDesc> 한글자씩 작성하고 버튼을 눌러주세요.</SubDesc></Title>
                     <String>
-                        <C color={spanList[0]}>누</C>
-                        <C color={spanList[1]}>돌</C>
-                        <C color={spanList[2]}>굶</C>
-                        <C color={spanList[3]}>배</C>
-                        <C color={spanList[4]}>셍</C>
-                        <C color={spanList[5]}>잻</C>
-                        <C color={spanList[6]}>취</C>
-                        <C color={spanList[7]}>킝</C>
-                        <C color={spanList[8]}>휅</C>
+                        <C color={spanList[0]}>{this.state.string[0]}</C>
+                        <C color={spanList[1]}>{this.state.string[1]}</C>
+                        <C color={spanList[2]}>{this.state.string[2]}</C>
+                        <C color={spanList[3]}>{this.state.string[3]}</C>
+                        <C color={spanList[4]}>{this.state.string[4]}</C>
+                        <C color={spanList[5]}>{this.state.string[5]}</C>
+                        <C color={spanList[6]}>{this.state.string[6]}</C>
+                        <C color={spanList[7]}>{this.state.string[7]}</C>
+                        <C color={spanList[8]}>{this.state.string[8]}</C>
                     </String>
 
                     <CanvasWrapper>

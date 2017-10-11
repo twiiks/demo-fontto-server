@@ -17,17 +17,44 @@ const params = {
 };
 
 Meteor.methods({
-    uploadToS3: function (fileType, fileBase64) {
+    uploadFileToS3: function (fileType, fileBase64) {
 
         const f = new Future();
         let fileBuffer = new Buffer
         (fileBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
 
-        let folderName = moment().format('YYYY-MM');
+        let folderName = 'images/' + moment().format('YYYY-MM') + '/';
         let fileName = moment().format('DD-HH-mm-ss-SSS');
 
-        params.Key = 'images/' + folderName + '/' + fileName;
+        params.Key = folderName + fileName;
         params.ContentType = fileType;
+        params.Body = fileBuffer;
+
+        const putObjectPromise = s3.putObject(params).promise();
+        putObjectPromise.then(function (data) {
+            console.log(data);
+            console.log('success');
+            return f.return('SUCCESS');
+        }).catch(function (err) {
+            console.log(err);
+            return f.throw(err);
+        });
+
+        return f.wait();
+    },
+
+    uploadHandwriteToS3: function (fileBase64, label) {
+        const f = new Future();
+        let fileBuffer = new Buffer
+        (fileBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+
+        const userEmail = Meteor.user().emails[0].address;
+        const userCount = Meteor.user().profile.count;
+        const folderName = 'handwrites/' + userEmail + '/' + userCount + '/';
+        const fileName = moment().format('YY-MM-DD-HH-mm-ss-SSS_' + label);
+
+        params.Key = folderName + fileName;
+        params.ContentType = 'image/jpeg';
         params.Body = fileBuffer;
 
         const putObjectPromise = s3.putObject(params).promise();

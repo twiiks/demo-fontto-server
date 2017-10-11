@@ -16,7 +16,6 @@ export class CanvasComponent extends Component {
         };
         this.draw = this.draw.bind(this);
         this.onMouseDown = this.onMouseDown.bind(this);
-
     }
 
     canvas() {
@@ -24,7 +23,7 @@ export class CanvasComponent extends Component {
     }
 
     ctx() {
-        return this.canvas().getContext("2d");
+        return this.canvas().getContext('2d');
     }
 
     componentDidMount() {
@@ -74,9 +73,18 @@ export class CanvasComponent extends Component {
         }
     }
 
+    getCanvasBuffer() {
+
+        this.ctx().globalCompositeOperation = "destination-over";
+        this.ctx().fillStyle = '#fff';
+        this.ctx().fillRect(0, 0, this.props.width, this.props.height);
+
+        return this.canvas().toDataURL('image/jpeg');
+    }
+
     clearCanvas() {
-        this.ctx().clearRect(0, 0, this.canvas().width,
-            this.canvas().height);
+        this.ctx().clearRect(0, 0,
+            this.canvas().width, this.canvas().height);
     }
 
     render() {
