@@ -50,6 +50,10 @@ export class Email extends Component {
                     Meteor.call('updateCount');
                 }
 
+                // 이미 존재한다면 일반적인 로그인 후 count 증가
+                Meteor.loginWithPassword(this.state.email, 'fontto');
+                Meteor.call('updateCount');
+
                 this.setState({loading: false});
                 this.props.history.push('/demo/canvas');
             }.bind(this));
