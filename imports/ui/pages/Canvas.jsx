@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import {Header} from '../components/Header';
+import {Loading} from '../components/Loading';
 
 import {BackgroundWhite} from "../styles/CommonStyle";
 import {CanvasComponent} from "../components/CanvasComponent";
@@ -16,6 +17,7 @@ export class Canvas extends Component {
             width: 0,
             height: 0,
             currentChar: 0,
+            loading: false,
             string: [
                 '누', '돌', '굶',
                 '배', '셍', '잻',
@@ -44,7 +46,6 @@ export class Canvas extends Component {
 
     onHandWriteSubmitButton() {
         let filebase64 = this.refs.canvasComponent.getCanvasBuffer();
-        this.refs.canvasComponent.clearCanvas();
 
         if (!Meteor.user()) {
             alert('로그인 후에 이용해주세요!');
@@ -56,11 +57,17 @@ export class Canvas extends Component {
             alert('마지막 글자입니다!');
             return;
         }
+
+        this.setState({loading: true});
         const label = this.state.string[this.state.currentChar];
 
         Meteor.call('uploadHandwriteToS3', filebase64, label,
             function (err, res) {
-                this.setState({currentChar: this.state.currentChar + 1});
+                this.refs.canvasComponent.clearCanvas();
+                this.setState({
+                    currentChar: this.state.currentChar + 1,
+                    loading: false
+                });
             }.bind(this))
 
     }
@@ -78,6 +85,7 @@ export class Canvas extends Component {
             <div className="index">
                 <BackgroundWhite>
                     <Header backLink='/demo/email'/>
+                    <Loading on={this.state.loading}/>
                     <Title>폰트 만들기<SubDesc> 한글자씩 작성하고 버튼을 눌러주세요.</SubDesc></Title>
                     <String>
                         <C color={spanList[0]}>{this.state.string[0]}</C>
