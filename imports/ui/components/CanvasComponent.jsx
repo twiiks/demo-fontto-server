@@ -29,10 +29,6 @@ export class CanvasComponent extends Component {
     componentDidMount() {
         const canvas = this.canvas();
         const ctx = this.ctx();
-        ctx.strokeStyle = '#222222';
-        ctx.lineJoin = 'round';
-        ctx.lineCap = 'round';
-        ctx.lineWidth = 12;
     }
 
     onMouseDown(e) {
@@ -48,6 +44,11 @@ export class CanvasComponent extends Component {
         if (this.state.isDrawing) {
             ctx.beginPath();
             ctx.moveTo(this.state.lastX, this.state.lastY);
+            ctx.strokeStyle = '#000';
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            ctx.lineWidth = 12;
+            ctx.lineWidth = 12;
             if (e.touches) {
                 // console.log(e.touches[0].clientX);
                 // console.log(e.touches[0].clientY);
