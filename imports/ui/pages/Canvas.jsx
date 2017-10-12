@@ -53,11 +53,6 @@ export class Canvas extends Component {
             return;
         }
 
-        if (this.state.currentChar === this.state.string.length) {
-            alert('마지막 글자입니다!');
-            return;
-        }
-
         this.setState({loading: true});
         const label = this.state.string[this.state.currentChar];
 
@@ -68,6 +63,11 @@ export class Canvas extends Component {
                     currentChar: this.state.currentChar + 1,
                     loading: false
                 });
+
+                // 모든 글자 다 입력했으면 다음페이지로
+                if(this.state.currentChar === this.state.string.length){
+                    this.props.history.push('/demo/end');
+                }
             }.bind(this))
 
     }
