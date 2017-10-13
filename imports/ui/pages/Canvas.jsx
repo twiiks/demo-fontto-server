@@ -72,10 +72,11 @@ export class Canvas extends Component {
                 // if(this.state.currentChar === this.state.string.length){
                 if(this.state.currentChar === 1){
                     // processing start
-                    Meteor.call('requestToProcessingServer', appendedFilePaths, function(err, res){
+                    Meteor.call('requestToProcessingServer', appendedFilePaths,
+                        function(err, imageBufferList){
                         this.props.history.push({
                             pathname: '/demo/end',
-                            state: res
+                            state: imageBufferList
                         });
                     }.bind(this));
 

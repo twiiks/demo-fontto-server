@@ -20,7 +20,6 @@ Meteor.methods({
             method: 'POST',
             json: requestObj
         }, function(err, response, body){
-            console.log(body);
             return f.return(body);
         });
 
