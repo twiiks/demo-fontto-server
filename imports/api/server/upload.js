@@ -26,7 +26,7 @@ Meteor.methods({
 
         // 256 이미지 고정
         Jimp.read(fileBuffer).then(function (fileBuffer) {
-            fileBuffer = fileBuffer.resize(256, 256).getBuffer(Jimp.MIME_JPEG,
+            fileBuffer = fileBuffer.resize(128, 128).getBuffer(Jimp.MIME_JPEG,
                 function (err, fileBuffer) {
                     const userEmail = Meteor.user().emails[0].address;
                     const userCount = Meteor.user().profile.count;
