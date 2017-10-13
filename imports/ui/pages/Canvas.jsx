@@ -21,7 +21,8 @@ export class Canvas extends Component {
             string: [
                 '누', '돌', '굶',
                 '배', '셍', '잻',
-                '취', '킝', '휅',]
+                '취', '킝', '휅',],
+            filePaths: []
         };
         this.updateWindowDimensions =
             this.updateWindowDimensions.bind(this);
@@ -59,14 +60,25 @@ export class Canvas extends Component {
         Meteor.call('uploadHandwriteToS3', filebase64, label,
             function (err, res) {
                 this.refs.canvasComponent.clearCanvas();
+                const appendedFilePaths = this.state.filePaths;
+                appendedFilePaths.push(res);
                 this.setState({
                     currentChar: this.state.currentChar + 1,
-                    loading: false
+                    loading: false,
+                    filePaths: appendedFilePaths
                 });
 
                 // 모든 글자 다 입력했으면 다음페이지로
-                if(this.state.currentChar === this.state.string.length){
-                    this.props.history.push('/demo/end');
+                // if(this.state.currentChar === this.state.string.length){
+                if(this.state.currentChar === 1){
+                    // processing start
+                    Meteor.call('requestToProcessingServer', appendedFilePaths, function(err, res){
+                        this.props.history.push({
+                            pathname: '/demo/end',
+                            state: res
+                        });
+                    }.bind(this));
+
                 }
             }.bind(this))
 

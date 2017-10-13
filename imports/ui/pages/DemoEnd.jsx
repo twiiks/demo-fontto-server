@@ -16,6 +16,20 @@ export class DemoEnd extends Component {
     }
 
     render() {
+        let imageData = null;
+        if (this.props.location.state['44256']) {
+            imageData = this.props.location.state['44256'];
+            imageData = 'data:image/jpeg;base64,' + imageData;
+            console.log(imageData);
+        }
+
+        let imageTag;
+        if(imageData){
+            imageTag = <img src={imageData} width={200} height={200}></img>
+        } else {
+            imageTag = null
+        }
+
         return (
             <div className="index">
                 <BackgroundBlack>
@@ -29,6 +43,8 @@ export class DemoEnd extends Component {
                                 생성된 폰트는 입력하신 메일 주소로 발송해 드립니다 :)<br/>
                                 페이지를 나가셔도 됩니다!
                             </Description>
+                            {imageTag}
+
                         </Content>
                     </ContentWrapper>
                 </BackgroundBlack>
