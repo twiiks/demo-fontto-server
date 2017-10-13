@@ -47,7 +47,7 @@ export class CanvasComponent extends Component {
             ctx.strokeStyle = '#000';
             ctx.lineJoin = 'round';
             ctx.lineCap = 'round';
-            ctx.lineWidth = 12;
+            ctx.lineWidth = 36;
             if (e.touches) {
                 // console.log(e.touches[0].clientX);
                 // console.log(e.touches[0].clientY);

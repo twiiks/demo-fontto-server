@@ -19,7 +19,7 @@ export class Canvas extends Component {
             currentChar: 0,
             loading: false,
             string: [
-                '누', '돌', '굶',
+                '누', '붐', '굶',
                 '배', '셍', '잻',
                 '취', '킝', '휅',],
             filePaths: []
@@ -48,11 +48,11 @@ export class Canvas extends Component {
     onHandWriteSubmitButton() {
         let filebase64 = this.refs.canvasComponent.getCanvasBuffer();
 
-        if (!Meteor.user()) {
-            alert('로그인 후에 이용해주세요!');
-            this.props.history.push('/demo/email');
-            return;
-        }
+        // if (!Meteor.user()) {
+        //     alert('로그인 후에 이용해주세요!');
+        //     this.props.history.push('/demo/email');
+        //     return;
+        // }
 
         this.setState({loading: true});
         const label = this.state.string[this.state.currentChar];
@@ -64,22 +64,27 @@ export class Canvas extends Component {
                 appendedFilePaths.push(res);
                 this.setState({
                     currentChar: this.state.currentChar + 1,
-                    loading: false,
                     filePaths: appendedFilePaths
                 });
 
+
                 // 모든 글자 다 입력했으면 다음페이지로
-                // if(this.state.currentChar === this.state.string.length){
-                if(this.state.currentChar === 1){
+                if(this.state.currentChar === this.state.string.length){
+                // if(this.state.currentChar === 1){
                     // processing start
                     Meteor.call('requestToProcessingServer', appendedFilePaths,
                         function(err, imageBufferList){
+                        // console.log(imageBufferList);
                         this.props.history.push({
                             pathname: '/demo/end',
                             state: imageBufferList
                         });
+
+                        this.setState({loading: false});
                     }.bind(this));
 
+                } else {
+                    this.setState({loading: false});
                 }
             }.bind(this))
 
@@ -97,7 +102,7 @@ export class Canvas extends Component {
         return (
             <div className="index">
                 <BackgroundWhite>
-                    <Header backLink='/demo/email'/>
+                    <Header backLink='/'/>
                     <Loading on={this.state.loading}/>
                     <Title>폰트 만들기<SubDesc> 한글자씩 작성하고 버튼을 눌러주세요.</SubDesc></Title>
                     <String>

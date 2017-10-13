@@ -40,7 +40,6 @@ Meteor.methods({
 
                     const putObjectPromise = s3.putObject(params).promise();
                     putObjectPromise.then(function (data) {
-                        console.log(data);
                         return f.return(folderName + fileName);
                     }).catch(function (err) {
                         console.log(err);

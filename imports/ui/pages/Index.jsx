@@ -11,7 +11,9 @@ import {
 export class Index extends Component {
     constructor(props) {
         super(props);
-        Meteor.logout(); // 페이지 들어가면 로그아웃
+        // Meteor.logout(); // 페이지 들어가면 로그아웃
+
+        Meteor.loginWithPassword('fontto@twiiks.co', 'fontto'); // 페이지 들어가면 로그인
     }
 
     render() {
@@ -29,7 +31,7 @@ export class Index extends Component {
                             </Description>
 
                             <ButtonWrapper>
-                                <Link to='/demo/email'>
+                                <Link to='/demo/canvas'>
                                     <GoToEmailButton label='폰트 만들기 >'/>
                                 </Link>
                             </ButtonWrapper>
