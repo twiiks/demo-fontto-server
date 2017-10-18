@@ -88,7 +88,7 @@ export class Canvas extends Component {
         const addGoal = Math.floor(Math.random() * 10) + 10;
         this.addProcess(this.state.currentPercentGoal + addGoal);
 
-        const unicodeLabel = this.toUnicode(label).toLowerCase()
+        const unicodeLabel = this.toUnicode(label).toLowerCase();
 
 
         Meteor.call('uploadHandwriteToS3', imageBuffer, label,
@@ -104,27 +104,37 @@ export class Canvas extends Component {
                     imageUrlsWithUnicode: appendUrlWithUnicode
                 });
             }.bind(this));
-
     }
 
-    enableSubmitButton() {
-        // this.setState({
-        //     submitDisabled: false
-        // })
+    onSubmitFontButton() {
+        this.props.history.push({
+            pathname: '/demo/end',
+            state: {
+                urls: this.state.imageUrlsWithUnicode,
+                count: Meteor.user().profile.count
+            }
+        });
     }
 
 
     render() {
-        console.log(this.state.imageUrlsWithUnicode)
-
         // 퍼센트에 따라 결정
         let submitButtonDisabled = true;
+        let nextButtonDisabled = false;
+
+        if (this.state.currentPercent !== this.state.currentPercentGoal) {
+            nextButtonDisabled = true;
+        }
+
         if (this.state.currentPercent === this.state.currentPercentGoal) {
             clearInterval(this.state.interval);
-        } else if (this.state.currentPercent > 70) {
-            submitButtonDisabled = false;
-        } else if (this.state.currentPercent === 100) {
+        } else if (this.state.currentPercent >= 100) {
             clearInterval(this.state.interval);
+            submitButtonDisabled = false;
+        }
+
+        if (this.state.currentPercent > 70) {
+            submitButtonDisabled = false;
         }
 
         // 캔버스 사이즈 조정
@@ -224,9 +234,12 @@ export class Canvas extends Component {
                                 </InformationContent>
                             </div>
                             <NextFontButton
+                                disabled={nextButtonDisabled}
                                 onClick={this.onNextFontButton.bind(this)}/>
                             <SubmitFontButton
-                                disabled={submitButtonDisabled}/>
+                                disabled={submitButtonDisabled}
+                                onClick={this.onSubmitFontButton.bind(this)}
+                            />
                         </InfomationWrapper>
                     </MaxedContentsWrapper>
                 </BackgroundWhite>

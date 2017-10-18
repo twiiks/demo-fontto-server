@@ -44,14 +44,16 @@ const CanvasWrapper = styled.div`
 `;
 
 const DescWrapper = styled.div`
-  height: 25px;
+  margin-bottom: 5px;
+  height: 24px;
+  //display:inline-block;
   //border: 1px solid red;
 `;
 
 const ToWriteFontDesc = styled.div`
   //border: 1px solid green;
   overflow: hidden;
-  height: 20px;
+  height: 24px;
   float: left;
   width: ${props => props.width}px;
 `;
@@ -62,6 +64,7 @@ const CanvasDesc = styled.div`
   overflow: hidden;
   height: 20px;
   float: right;
+  font-size: 18px;
   width: ${props => props.width}px;
 `;
 
@@ -131,6 +134,7 @@ class NextFontButton extends Component {
     render() {
         return (
             <FloatingActionButton
+                disabled={this.props.disabled}
                 onClick={this.props.onClick}
                 backgroundColor='#444444'
                 style={{
@@ -149,6 +153,7 @@ class SubmitFontButton extends Component {
     render() {
         return (
             <FloatingActionButton
+                onClick={this.props.onClick}
                 backgroundColor='#444444'
                 // disabled={this.props.disabled}
                 disabled={this.props.disabled}
