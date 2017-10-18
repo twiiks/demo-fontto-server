@@ -37,7 +37,9 @@ const C = styled.span`
 const MaxedContentsWrapper = styled.div`
   padding: 20px;
   max-width: ${props => props.maxWidth}px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10vh;
 `;
 
 const CanvasWrapper = styled.div`
@@ -47,7 +49,7 @@ const CanvasWrapper = styled.div`
 `;
 
 const DescWrapper = styled.div`
-  height: 20px;
+  height: 25px;
   //border: 1px solid red;
 `;
 
@@ -175,7 +177,6 @@ class SubmitFontButton extends Component {
         )
     }
 }
-
 
 export {
     Title, SubDesc, MaxedContentsWrapper, ToWriteFontDesc,

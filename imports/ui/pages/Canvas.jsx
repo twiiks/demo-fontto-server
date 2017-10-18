@@ -10,7 +10,7 @@ import {
     String, C, MaxedContentsWrapper, DescWrapper, CanvasDesc, InformationTitle,
     CanvasWrapper, HandwriteSubmitButton, Separator, InfomationWrapper,
     HandwriteSubmitButtonWrapper, InformationContent, NextFontButton, SubmitFontButton,
-    PercentInfoWrapper,Percent
+    PercentInfoWrapper, Percent
 } from "../styles/pages/CanvasStyle";
 
 export class Canvas extends Component {
@@ -118,7 +118,7 @@ export class Canvas extends Component {
         }
 
         // 하단부분 height 높이결정
-        let informationSize = this.state.height - canvasSize - 250;
+        let informationSize = this.state.height - canvasSize - 350;
 
         // 퍼센트 폰트 사이즈 결정
         let percentFontSize = canvasSize / 2.5;
@@ -126,7 +126,7 @@ export class Canvas extends Component {
 
         // 현재 작업 변경
         let currentJob = '';
-        if(this.state.currentJob === ''){
+        if (this.state.currentJob === '') {
             currentJob = '진행중인 작업이 없습니다.'
         } else {
             currentJob = this.state.currentJob;
@@ -134,7 +134,7 @@ export class Canvas extends Component {
 
         // 작성된 글자 변경
         let writtenFonts = '';
-        if(this.state.writtenFonts === ''){
+        if (this.state.writtenFonts === '') {
             writtenFonts = '글자를 작성해보세요!';
         } else {
             writtenFonts = this.state.writtenFonts;
