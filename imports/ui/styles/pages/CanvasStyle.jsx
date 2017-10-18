@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 
 import styled, {keyframes} from 'styled-components';
-import {RaisedButton} from 'material-ui';
+import {RaisedButton, FloatingActionButton} from 'material-ui';
+import IconNext from 'material-ui/svg-icons/image/navigate-next';
+import IconCheck from 'material-ui/svg-icons/navigation/check';
 
 import {fadeInRight} from 'react-animations'
 
@@ -34,7 +36,7 @@ const C = styled.span`
 
 const MaxedContentsWrapper = styled.div`
   padding: 20px;
-  max-width: 800px;
+  max-width: ${props => props.maxWidth}px;
   margin: 0 auto;
 `;
 
@@ -93,6 +95,41 @@ const Separator = styled.div`
   margin-bottom: 20px;
 `;
 
+const InfomationWrapper = styled.div`
+  position: relative;
+  height: ${props => props.height}px;
+  //border: 1px solid red;
+`;
+
+const InformationTitle = styled.div`
+  font-size: 18px;
+  color: #333333;
+  margin: 10px 56% 10px 10px;
+`;
+
+const InformationContent = styled.div`
+  font-size: 14px;
+  color: #999999;
+  margin: 10px 56% 10px 10px;
+  word-break: break-all;
+`;
+
+const PercentInfoWrapper = styled.div`
+  position: absolute;
+  right: 20px;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  //border: 1px solid yellow;
+`;
+
+const Percent = styled.div`
+  position: absolute;
+  text-align: center;
+  font-size: ${props => props.fontSize}px;
+  width: 100%;
+`;
+
 class HandwriteSubmitButton extends Component {
     render() {
         return (
@@ -104,13 +141,50 @@ class HandwriteSubmitButton extends Component {
     }
 }
 
+class NextFontButton extends Component {
+    render() {
+        return (
+            <FloatingActionButton
+                backgroundColor='#444444'
+                style={{
+                    position: 'absolute',
+                    bottom: 70,
+                    right: -15
+                }}>
+                <IconNext/>
+            </FloatingActionButton>
+        )
+    }
+}
+
+
+class SubmitFontButton extends Component {
+    render() {
+        return (
+            <FloatingActionButton
+                backgroundColor='#444444'
+                // disabled={this.props.disabled}
+                disabled={true}
+                style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    right: -15
+                }}>
+                <IconCheck/>
+            </FloatingActionButton>
+        )
+    }
+}
+
 
 export {
     Title, SubDesc, MaxedContentsWrapper, ToWriteFontDesc,
     String, C, DescWrapper, CanvasDesc,
-    HandwriteSubmitButton,
+    HandwriteSubmitButton, InfomationWrapper, InformationTitle,
+    InformationContent,
     HandwriteSubmitButtonWrapper,
     ToWriteFontWrapper,
-    ToWriteFont,Separator,
-    CanvasWrapper,
+    ToWriteFont, Separator,
+    CanvasWrapper, NextFontButton, SubmitFontButton,
+    PercentInfoWrapper, Percent
 };

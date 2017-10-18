@@ -11,8 +11,7 @@ import {
 export class Index extends Component {
     constructor(props) {
         super(props);
-        // Meteor.logout(); // 페이지 들어가면 로그아웃
-
+        Meteor.logout(); // 페이지 들어가면 로그아웃
         Meteor.loginWithPassword('fontto@twiiks.co', 'fontto'); // 페이지 들어가면 로그인
     }
 
