@@ -32,7 +32,7 @@ export class DemoEnd extends Component {
 
     getImageTag(imageUrl, key) {
         return (
-            <img style={{margin: 2}} key={key} src={imageUrl} width={120} height={120}></img>
+            <img style={{margin: 2}} key={key} src={imageUrl} width={64} height={64}></img>
         )
     }
 

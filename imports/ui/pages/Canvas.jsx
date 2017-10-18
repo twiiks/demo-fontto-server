@@ -78,32 +78,36 @@ export class Canvas extends Component {
     onNextFontButton() {
         let imageBuffer = this.refs.canvasComponent.getCanvasBuffer();
 
-        // this.setState({loading: true});
         const label = this.state.toWriteFonts[this.state.currentChar];
 
         this.setState({
             loading: true,
-            currentJob: '\'' + label + '\' 이미지 전처리 / 업로드 중...'
+            currentJob: '\'' + label + '\' 분석 중...!'
         });
         const addGoal = Math.floor(Math.random() * 10) + 10;
         this.addProcess(this.state.currentPercentGoal + addGoal);
 
         const unicodeLabel = this.toUnicode(label).toLowerCase();
 
+        Meteor.call('resizeImage', imageBuffer, function (err, resizedBuffer) {
+            this.setState({
+                currentJob: '\'' + label + '\' 업로드 중...!',
+            });
 
-        Meteor.call('uploadHandwriteToS3', imageBuffer, label,
-            function (err, res) {
-                this.refs.canvasComponent.clearCanvas();
-                const appendUrlWithUnicode = this.state.imageUrlsWithUnicode;
-                appendUrlWithUnicode[unicodeLabel] = res;
-                this.setState({
-                    currentJob: '\'' + label + '\' 분석 완료 !',
-                    writtenFonts: this.state.writtenFonts + label,
-                    currentChar: this.state.currentChar + 1,
-                    loading: false,
-                    imageUrlsWithUnicode: appendUrlWithUnicode
-                });
-            }.bind(this));
+            Meteor.call('uploadHandwriteToS3', resizedBuffer, label,
+                function (err, res) {
+                    this.refs.canvasComponent.clearCanvas();
+                    const appendUrlWithUnicode = this.state.imageUrlsWithUnicode;
+                    appendUrlWithUnicode[unicodeLabel] = res;
+                    this.setState({
+                        currentJob: '\'' + label + '\' 분석 완료 !',
+                        writtenFonts: this.state.writtenFonts + label,
+                        currentChar: this.state.currentChar + 1,
+                        loading: false,
+                        imageUrlsWithUnicode: appendUrlWithUnicode
+                    });
+                }.bind(this));
+        }.bind(this));
     }
 
     onSubmitFontButton() {
