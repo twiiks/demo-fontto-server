@@ -32,15 +32,65 @@ const C = styled.span`
   font-size: 18px;
 `;
 
+const MaxedContentsWrapper = styled.div`
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+`;
+
 const CanvasWrapper = styled.div`
-  text-align: center;
   margin-top: 10px;
+  height: ${props => props.height}px;
+  //border: 1px solid blue;
+`;
+
+const DescWrapper = styled.div`
+  height: 20px;
+  //border: 1px solid red;
+`;
+
+const ToWriteFontDesc = styled.div`
+  //border: 1px solid green;
+  overflow: hidden;
+  height: 20px;
+  float: left;
+  width: ${props => props.width}px;
+`;
+
+const CanvasDesc = styled.div`
+  text-align: center;
+  //border: 1px solid yellow;
+  overflow: hidden;
+  height: 20px;
+  float: right;
+  width: ${props => props.width}px;
+`;
+
+const ToWriteFontWrapper = styled.div`
+  //border: 1px solid black;
+  float: left;
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;
+  display: table;
+`;
+
+const ToWriteFont = styled.div`
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: ${props => props.fontSize}px;
 `;
 
 const HandwriteSubmitButtonWrapper = styled.div`
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
+`;
+
+const Separator = styled.div`
+  height: 20px;
+  border-bottom: 1px solid #bbbbbb;
+  margin-bottom: 20px;
 `;
 
 class HandwriteSubmitButton extends Component {
@@ -54,10 +104,13 @@ class HandwriteSubmitButton extends Component {
     }
 }
 
+
 export {
-    Title, SubDesc,
-    String, C,
+    Title, SubDesc, MaxedContentsWrapper, ToWriteFontDesc,
+    String, C, DescWrapper, CanvasDesc,
     HandwriteSubmitButton,
     HandwriteSubmitButtonWrapper,
+    ToWriteFontWrapper,
+    ToWriteFont,Separator,
     CanvasWrapper,
 };

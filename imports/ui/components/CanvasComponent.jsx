@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const DrawingCanvas = styled.canvas`
   border: 1px solid #444444;
   background-color: #ffffff;
+  float: right;
 `;
 
 export class CanvasComponent extends Component {
@@ -47,7 +48,7 @@ export class CanvasComponent extends Component {
             ctx.strokeStyle = '#000';
             ctx.lineJoin = 'round';
             ctx.lineCap = 'round';
-            ctx.lineWidth = 36;
+            ctx.lineWidth = this.props.lineWidth;
             if (e.touches) {
                 // console.log(e.touches[0].clientX);
                 // console.log(e.touches[0].clientY);
