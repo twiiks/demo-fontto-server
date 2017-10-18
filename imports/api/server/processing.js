@@ -29,6 +29,14 @@ Meteor.methods({
 
 
         return f.wait();
+    },
+
+    dumyRequestToProcessingServer: function (requests) {
+        console.log(reqeusts);
+
+        const response = requests.urls;
+
+        return response;
     }
 });
 

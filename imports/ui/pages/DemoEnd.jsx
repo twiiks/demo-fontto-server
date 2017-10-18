@@ -1,36 +1,45 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Header} from "../components/Header";
+import {Loading} from "../components/Loading";
 
 import {BackgroundBlack, Content, ContentWrapper} from "../styles/CommonStyle";
 import {
-TitleUpper, Title,
-Description, ImagesWrapper
+    TitleUpper, Title,
+    Description, ImagesWrapper
 } from '../styles/pages/DemoEndStyle';
 
 
 export class DemoEnd extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loading: true,
+            response: {}
+        }
         // Meteor.logout(); // 페이지 들어가면 로그아웃
     }
 
-    getImageTag(b64Image, key){
+    componentDidMount() {
+        // console.log(this.props.location.state);
+        const requests = this.props.location.state;
+        const response = Meteor.call('dumyRequestToProcessingServer', requests);
+        this.setState({
+            response: response,
+            loading: false
+        })
+    }
+
+    getImageTag(imageUrl, key) {
         return (
-            <img style={{margin: 2}} key={key} src={b64Image} width={120} height={120}></img>
+            <img style={{margin: 2}} key={key} src={imageUrl} width={120} height={120}></img>
         )
     }
 
     render() {
-        let imagesData = null;
+        let imagesData;
         if (this.props.location.state) {
-            imagesData = this.props.location.state;
-            Object.keys(imagesData).forEach(function (key) {
-                var b64Image = imagesData[key];
-                b64Image = 'data:image/jpeg;base64,' + b64Image;
-                imagesData[key] = b64Image;
-            });
-
+            imagesData = this.props.location.state.urls;
         }
 
         let imagesTag = [];
@@ -46,6 +55,7 @@ export class DemoEnd extends Component {
         return (
             <div className="index">
                 <BackgroundBlack>
+                    <Loading/>
                     <Header backLink='/demo'/>
                     <ContentWrapper animationTime={0}>
                         <Content>
