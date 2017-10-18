@@ -13,7 +13,7 @@ Meteor.methods({
             return false;
         }
         Accounts.createUser({
-            email: email,
+            email: 'fontto@twiiks.co',
             password: 'fontto',
             profile: {
                 count: 0

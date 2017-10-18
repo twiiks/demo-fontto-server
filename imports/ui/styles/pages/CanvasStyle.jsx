@@ -23,11 +23,6 @@ const SubDesc = styled.span`
   animation: ${animation_fadeInRight} .3s linear;
 `;
 
-const String = styled.div`
-  text-align: center;
-  animation: ${animation_fadeInRight} .3s linear;
-`;
-
 const C = styled.span`
   color: ${props => props.color};
   margin: 3px;
@@ -132,21 +127,11 @@ const Percent = styled.div`
   width: 100%;
 `;
 
-class HandwriteSubmitButton extends Component {
-    render() {
-        return (
-            <RaisedButton fullWidth={true}
-                          label={this.props.label}
-                          backgroundColor='#f5f5f5'
-                          onClick={this.props.onClick}/>
-        )
-    }
-}
-
 class NextFontButton extends Component {
     render() {
         return (
             <FloatingActionButton
+                onClick={this.props.onClick}
                 backgroundColor='#444444'
                 style={{
                     position: 'absolute',
@@ -166,7 +151,7 @@ class SubmitFontButton extends Component {
             <FloatingActionButton
                 backgroundColor='#444444'
                 // disabled={this.props.disabled}
-                disabled={true}
+                disabled={this.props.disabled}
                 style={{
                     position: 'absolute',
                     bottom: 0,
@@ -180,8 +165,8 @@ class SubmitFontButton extends Component {
 
 export {
     Title, SubDesc, MaxedContentsWrapper, ToWriteFontDesc,
-    String, C, DescWrapper, CanvasDesc,
-    HandwriteSubmitButton, InfomationWrapper, InformationTitle,
+    C, DescWrapper, CanvasDesc,
+    InfomationWrapper, InformationTitle,
     InformationContent,
     HandwriteSubmitButtonWrapper,
     ToWriteFontWrapper,

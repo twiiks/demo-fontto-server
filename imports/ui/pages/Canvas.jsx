@@ -7,9 +7,9 @@ import {BackgroundWhite} from "../styles/CommonStyle";
 import {CanvasComponent} from "../components/CanvasComponent";
 import {
     Title, SubDesc, ToWriteFont, ToWriteFontWrapper, ToWriteFontDesc,
-    String, C, MaxedContentsWrapper, DescWrapper, CanvasDesc, InformationTitle,
-    CanvasWrapper, HandwriteSubmitButton, Separator, InfomationWrapper,
-    HandwriteSubmitButtonWrapper, InformationContent, NextFontButton, SubmitFontButton,
+    C, MaxedContentsWrapper, DescWrapper, CanvasDesc, InformationTitle,
+    CanvasWrapper, Separator, InfomationWrapper,
+    InformationContent, NextFontButton, SubmitFontButton,
     PercentInfoWrapper, Percent
 } from "../styles/pages/CanvasStyle";
 
@@ -26,13 +26,14 @@ export class Canvas extends Component {
             currentPercent: 0,
             writtenFonts: '',
             currentJob: '',
-            filePaths: []
+            imageUrlsWithUnicode: {},
+            interval: 0,
+            currentPercentGoal: 0,
         };
         this.updateWindowDimensions =
             this.updateWindowDimensions.bind(this);
-        this.onHandWriteSubmitButton =
-            this.onHandWriteSubmitButton.bind(this);
 
+        Meteor.loginWithPassword('fontto@twiiks.co', 'fontto'); // 페이지 들어가면 로그인
         Meteor.call('updateCount');
     }
 
@@ -49,53 +50,83 @@ export class Canvas extends Component {
         this.setState({width: window.innerWidth, height: window.innerHeight});
     }
 
-    onHandWriteSubmitButton() {
-        let filebase64 = this.refs.canvasComponent.getCanvasBuffer();
+    addProcess(percent) {
 
-        // if (!Meteor.user()) {
-        //     alert('로그인 후에 이용해주세요!');
-        //     this.props.history.push('/demo/email');
-        //     return;
-        // }
+        const time = Math.floor(Math.random() * 150) + 50;
+
+        this.setState({
+            interval: setInterval(function () {
+                this.setState({
+                    currentPercent: this.state.currentPercent + 1
+                })
+            }.bind(this), time),
+            currentPercentGoal: percent
+        })
+
+    }
+
+    toUnicode(str) {
+        return str.split('').map(function (value, index, array) {
+            var temp = value.charCodeAt(0).toString(16).toUpperCase();
+            if (temp.length > 2) {
+                return '0x' + temp;
+            }
+            return value;
+        }).join('');
+    }
+
+    onNextFontButton() {
+        let imageBuffer = this.refs.canvasComponent.getCanvasBuffer();
 
         // this.setState({loading: true});
-        // const label = this.state.string[this.state.currentChar];
-        //
-        // Meteor.call('uploadHandwriteToS3', filebase64, label,
-        //     function (err, res) {
-        //         this.refs.canvasComponent.clearCanvas();
-        //         const appendedFilePaths = this.state.filePaths;
-        //         appendedFilePaths.push(res);
-        //         this.setState({
-        //             currentChar: this.state.currentChar + 1,
-        //             filePaths: appendedFilePaths
-        //         });
-        //
-        //
-        //         // 모든 글자 다 입력했으면 다음페이지로
-        //         if (this.state.currentChar === this.state.string.length) {
-        //             // if(this.state.currentChar === 1){
-        //             // processing start
-        //             Meteor.call('requestToProcessingServer', appendedFilePaths,
-        //                 function (err, imageBufferList) {
-        //                     // console.log(imageBufferList);
-        //                     this.props.history.push({
-        //                         pathname: '/demo/end',
-        //                         state: imageBufferList
-        //                     });
-        //
-        //                     this.setState({loading: false});
-        //                 }.bind(this));
-        //
-        //         } else {
-        //             this.setState({loading: false});
-        //         }
-        //     }.bind(this))
+        const label = this.state.toWriteFonts[this.state.currentChar];
 
+        this.setState({
+            loading: true,
+            currentJob: '\'' + label + '\' 이미지 전처리 / 업로드 중...'
+        });
+        const addGoal = Math.floor(Math.random() * 10) + 10;
+        this.addProcess(this.state.currentPercentGoal + addGoal);
+
+        const unicodeLabel = this.toUnicode(label).toLowerCase()
+
+
+        Meteor.call('uploadHandwriteToS3', imageBuffer, label,
+            function (err, res) {
+                this.refs.canvasComponent.clearCanvas();
+                const appendUrlWithUnicode = this.state.imageUrlsWithUnicode;
+                appendUrlWithUnicode[unicodeLabel] = res;
+                this.setState({
+                    currentJob: '\'' + label + '\' 분석 완료 !',
+                    writtenFonts: this.state.writtenFonts + label,
+                    currentChar: this.state.currentChar + 1,
+                    loading: false,
+                    imageUrlsWithUnicode: appendUrlWithUnicode
+                });
+            }.bind(this));
+
+    }
+
+    enableSubmitButton() {
+        // this.setState({
+        //     submitDisabled: false
+        // })
     }
 
 
     render() {
+        console.log(this.state.imageUrlsWithUnicode)
+
+        // 퍼센트에 따라 결정
+        let submitButtonDisabled = true;
+        if (this.state.currentPercent === this.state.currentPercentGoal) {
+            clearInterval(this.state.interval);
+        } else if (this.state.currentPercent > 70) {
+            submitButtonDisabled = false;
+        } else if (this.state.currentPercent === 100) {
+            clearInterval(this.state.interval);
+        }
+
         // 캔버스 사이즈 조정
         let canvasSize;
         if (this.state.width > this.state.maxWidth) {
@@ -192,15 +223,11 @@ export class Canvas extends Component {
                                     {writtenFonts}
                                 </InformationContent>
                             </div>
-                            <NextFontButton/>
-                            <SubmitFontButton/>
+                            <NextFontButton
+                                onClick={this.onNextFontButton.bind(this)}/>
+                            <SubmitFontButton
+                                disabled={submitButtonDisabled}/>
                         </InfomationWrapper>
-
-                        {/*<HandwriteSubmitButtonWrapper>*/}
-                        {/*<HandwriteSubmitButton*/}
-                        {/*label='다음 글자 작성하기'*/}
-                        {/*onClick={this.onHandWriteSubmitButton}/>*/}
-                        {/*</HandwriteSubmitButtonWrapper>*/}
                     </MaxedContentsWrapper>
                 </BackgroundWhite>
             </div>

@@ -3,6 +3,7 @@
  */
 import Future from 'fibers/future';
 import request from 'request';
+import Jimp from 'jimp';
 
 const environment = process.env.FONTTO_ENV;
 let processingIp = '';
@@ -30,3 +31,4 @@ Meteor.methods({
         return f.wait();
     }
 });
+
