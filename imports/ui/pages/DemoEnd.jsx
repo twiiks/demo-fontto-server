@@ -3,10 +3,10 @@ import {Link} from 'react-router-dom';
 import {Header} from "../components/Header";
 import {Loading} from "../components/Loading";
 
-import {BackgroundBlack, Content, ContentWrapper} from "../styles/CommonStyle";
+import {BackgroundWhite, Content, ContentWrapper} from "../styles/CommonStyle";
 import {
     TitleUpper, Title,
-    Description, ImagesWrapper
+    Description, ImagesWrapper, DisqusWrapper, DemoEndWrapper
 } from '../styles/pages/DemoEndStyle';
 
 
@@ -27,7 +27,12 @@ export class DemoEnd extends Component {
         this.setState({
             response: response,
             loading: false
-        })
+        });
+
+        const script = document.createElement('script');
+        script.src = '/js/disqus.js';
+        script.async = true;
+        document.body.appendChild(script);
     }
 
     getImageTag(imageUrl, key) {
@@ -54,26 +59,32 @@ export class DemoEnd extends Component {
 
         return (
             <div className="index">
-                <BackgroundBlack>
+                <BackgroundWhite>
                     <Loading/>
                     <Header backLink='/demo'/>
-                    <ContentWrapper animationTime={0}>
-                        <Content>
-                            <TitleUpper>create your creativity</TitleUpper>
-                            <Title>fontto</Title>
+                    <DemoEndWrapper>
+                        <TitleUpper>create your creativity</TitleUpper>
+                        <Title>fontto</Title>
 
-                            <Description>
-                                감사합니다. 최종 버전에서는 입력한 손글씨 혹은 업로드한 이미지로 <br/>
-                                폰트가 생성됩니다.<br/>
-                            </Description>
+                        <Description>
+                            감사합니다. fontto 가 최종적으로 완성되면, 앞에서 입력하신 메일로 먼저 발송해 드리겠습니다:)<br/>
+                            현재 fontto 는 세명의 개발자가 열심히 개발 중에 있습니다.
+                            <br/><br/>
+                            아래의 '감사'는 입력된 손글씨를 데모 프로세스를 거쳐 생성한 것입니다.<br/>
+                            자유롭게 공유하고 댓글로 소중한 의견을 남겨주시면 감사하겠습니다!
 
-                            <ImagesWrapper>
-                                {imagesTag}
-                            </ImagesWrapper>
+                            <br/>
+                        </Description>
 
-                        </Content>
-                    </ContentWrapper>
-                </BackgroundBlack>
+                        <ImagesWrapper>
+                            {imagesTag}
+                        </ImagesWrapper>
+
+                        <DisqusWrapper>
+                            <div id="disqus_thread"/>
+                        </DisqusWrapper>
+                    </DemoEndWrapper>
+                </BackgroundWhite>
             </div>
         );
     }
