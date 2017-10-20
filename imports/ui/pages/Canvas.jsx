@@ -40,6 +40,11 @@ export class Canvas extends Component {
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
+
+        const script = document.createElement('script');
+        script.src = '/js/preventTouchMove.js';
+        script.async = true;
+        document.body.appendChild(script);
     }
 
     componentWillUnmount() {
