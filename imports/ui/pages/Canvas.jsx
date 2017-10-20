@@ -168,7 +168,7 @@ export class Canvas extends Component {
         }
 
         // 하단부분 height 높이결정
-        let informationSize = this.state.height - canvasSize - 350;
+        let informationSize = this.state.height - canvasSize - 250;
 
         // 퍼센트 폰트 사이즈 결정
         let percentFontSize = canvasSize / 2.5;
