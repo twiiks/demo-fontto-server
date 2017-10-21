@@ -34,11 +34,12 @@ const MaxedContentsWrapper = styled.div`
   max-width: ${props => props.maxWidth}px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5vh;
+  margin-top: 3vh;
 `;
 
 const CanvasWrapper = styled.div`
   margin-top: 10px;
+  margin-bottom: 20px;
   height: ${props => props.height}px;
   //border: 1px solid blue;
 `;
@@ -54,8 +55,7 @@ const ToWriteFontDesc = styled.div`
   //border: 1px solid green;
   overflow: hidden;
   height: 24px;
-  float: left;
-  width: ${props => props.width}px;
+  margin-bottom: 10px;
 `;
 
 const CanvasDesc = styled.div`
@@ -89,12 +89,6 @@ const HandwriteSubmitButtonWrapper = styled.div`
   margin-right: 10px;
 `;
 
-const Separator = styled.div`
-  height: 20px;
-  border-bottom: 1px solid #bbbbbb;
-  margin-bottom: 20px;
-`;
-
 const InfomationWrapper = styled.div`
   position: relative;
   height: ${props => props.height}px;
@@ -104,20 +98,20 @@ const InfomationWrapper = styled.div`
 const InformationTitle = styled.div`
   font-size: 18px;
   color: #333333;
-  margin: 10px 56% 10px 10px;
+  margin: 10px 50% 5px 10px;
 `;
 
 const InformationContent = styled.div`
   font-size: 14px;
   color: #999999;
-  margin: 10px 56% 10px 10px;
+  margin: 5px 50% 5px 10px;
   word-break: break-all;
 `;
 
 const PercentInfoWrapper = styled.div`
   position: absolute;
-  right: 20px;
-  top: 0;
+  right: 0;
+  top: -10px;
   height: 100%;
   width: 50%;
   //border: 1px solid yellow;
@@ -133,17 +127,18 @@ const Percent = styled.div`
 class NextFontButton extends Component {
     render() {
         return (
-            <FloatingActionButton
+            <RaisedButton
+                fullWidth={true}
                 disabled={this.props.disabled}
                 onClick={this.props.onClick}
                 backgroundColor='#444444'
+                label='다음글자 작성하기 >'
+                labelColor='#ffffff'
                 style={{
                     position: 'absolute',
-                    bottom: 70,
-                    right: -15
-                }}>
-                <IconNext/>
-            </FloatingActionButton>
+                    bottom: '50px'
+                }}
+            />
         )
     }
 }
@@ -152,18 +147,18 @@ class NextFontButton extends Component {
 class SubmitFontButton extends Component {
     render() {
         return (
-            <FloatingActionButton
+            <RaisedButton
                 onClick={this.props.onClick}
                 backgroundColor='#444444'
-                // disabled={this.props.disabled}
                 disabled={this.props.disabled}
+                label={this.props.label}
+                fullWidth={true}
+                labelColor='#ffffff'
                 style={{
                     position: 'absolute',
-                    bottom: 0,
-                    right: -15
-                }}>
-                <IconCheck/>
-            </FloatingActionButton>
+                    bottom: 0
+                }}
+            />
         )
     }
 }
@@ -175,7 +170,7 @@ export {
     InformationContent,
     HandwriteSubmitButtonWrapper,
     ToWriteFontWrapper,
-    ToWriteFont, Separator,
+    ToWriteFont,
     CanvasWrapper, NextFontButton, SubmitFontButton,
     PercentInfoWrapper, Percent
 };

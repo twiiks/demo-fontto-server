@@ -7,11 +7,13 @@ import {BackgroundWhite} from "../styles/CommonStyle";
 import {CanvasComponent} from "../components/CanvasComponent";
 import {
     Title, SubDesc, ToWriteFont, ToWriteFontWrapper, ToWriteFontDesc,
-    C, MaxedContentsWrapper, DescWrapper, CanvasDesc, InformationTitle,
-    CanvasWrapper, Separator, InfomationWrapper,
+    C, MaxedContentsWrapper, DescWrapper, InformationTitle,
+    CanvasWrapper, InfomationWrapper,
     InformationContent, NextFontButton, SubmitFontButton,
     PercentInfoWrapper, Percent
 } from "../styles/pages/CanvasStyle";
+
+const environment = process.env.FONTTO_ENV;
 
 export class Canvas extends Component {
     constructor(props) {
@@ -29,6 +31,7 @@ export class Canvas extends Component {
             imageUrlsWithUnicode: {},
             interval: 0,
             currentPercentGoal: 0,
+            fontCoverage: 0
         };
         this.updateWindowDimensions =
             this.updateWindowDimensions.bind(this);
@@ -61,7 +64,8 @@ export class Canvas extends Component {
         this.setState({
             interval: setInterval(function () {
                 this.setState({
-                    currentPercent: this.state.currentPercent + 1
+                    currentPercent: this.state.currentPercent + 1,
+                    fontCoverage: parseInt(this.state.currentPercent / 100 * 323)
                 })
             }.bind(this), time),
             currentPercentGoal: percent
@@ -115,11 +119,13 @@ export class Canvas extends Component {
     }
 
     onSubmitFontButton() {
+
         this.props.history.push({
             pathname: '/demo/end',
             state: {
                 urls: this.state.imageUrlsWithUnicode,
-                count: Meteor.user().profile.count
+                count: Meteor.user().profile.count,
+                env: environment
             }
         });
     }
@@ -167,7 +173,7 @@ export class Canvas extends Component {
         }
 
         // 하단부분 height 높이결정
-        let informationSize = this.state.height - canvasSize - 270;
+        let informationSize = this.state.height - canvasSize - 220;
 
         // 퍼센트 폰트 사이즈 결정
         let percentFontSize = canvasSize / 2.5;
@@ -189,6 +195,16 @@ export class Canvas extends Component {
             writtenFonts = this.state.writtenFonts;
         }
 
+        // submit label
+        let submitLabel = '';
+        if (this.state.currentJob === '') {
+            submitLabel = '70% 이상 시 글자 생성이 가능합니다.'
+        } else if (this.state.currentPercent < 70) {
+            submitLabel = this.state.currentJob;
+        } else {
+            submitLabel = '글자 생성하기'
+        }
+
         return (
             <div className="canvas" ref='canvas'>
                 <BackgroundWhite>
@@ -197,12 +213,9 @@ export class Canvas extends Component {
                     <Title>폰트 만들기<SubDesc> 한글자씩 작성하고 버튼을 눌러주세요.</SubDesc></Title>
                     <MaxedContentsWrapper maxWidth={this.state.maxWidth}>
                         <DescWrapper>
-                            <ToWriteFontDesc width={canvasSize}>
+                            <ToWriteFontDesc>
                                 {toWriteSpanList}
                             </ToWriteFontDesc>
-                            <CanvasDesc width={canvasSize}>
-                                아래에 따라써주세요
-                            </CanvasDesc>
                         </DescWrapper>
                         <CanvasWrapper height={canvasSize}>
                             <ToWriteFontWrapper width={canvasSize}
@@ -215,9 +228,8 @@ export class Canvas extends Component {
                                              height={canvasSize}
                                              lineWidth={canvasSize / 25}
                                              ref='canvasComponent'/>
-                        </CanvasWrapper>
 
-                        <Separator/>
+                        </CanvasWrapper>
 
                         <InfomationWrapper height={informationSize}>
                             <PercentInfoWrapper>
@@ -227,13 +239,13 @@ export class Canvas extends Component {
                             </PercentInfoWrapper>
                             <div>
                                 <InformationTitle>
-                                    현재 작업
+                                    글자 생성 가능
                                 </InformationTitle>
                                 <InformationContent>
-                                    {currentJob}
+                                    최빈출 : {this.state.fontCoverage} / 323
                                 </InformationContent>
                             </div>
-                            <div>
+                            <div style={{marginTop: 10}}>
                                 <InformationTitle>
                                     작성된 글자
                                 </InformationTitle>
@@ -241,10 +253,13 @@ export class Canvas extends Component {
                                     {writtenFonts}
                                 </InformationContent>
                             </div>
+
                             <NextFontButton
                                 disabled={nextButtonDisabled}
                                 onClick={this.onNextFontButton.bind(this)}/>
+
                             <SubmitFontButton
+                                label={submitLabel}
                                 disabled={submitButtonDisabled}
                                 onClick={this.onSubmitFontButton.bind(this)}
                             />
