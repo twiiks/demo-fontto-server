@@ -41,10 +41,9 @@ export class Canvas extends Component {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
 
-        const script = document.createElement('script');
-        script.src = '/js/preventTouchMove.js';
-        script.async = true;
-        document.body.appendChild(script);
+        this.refs.canvas.addEventListener('touchmove', function (e) {
+            e.preventDefault();
+        });
     }
 
     componentWillUnmount() {
@@ -168,7 +167,7 @@ export class Canvas extends Component {
         }
 
         // 하단부분 height 높이결정
-        let informationSize = this.state.height - canvasSize - 250;
+        let informationSize = this.state.height - canvasSize - 270;
 
         // 퍼센트 폰트 사이즈 결정
         let percentFontSize = canvasSize / 2.5;
@@ -191,7 +190,7 @@ export class Canvas extends Component {
         }
 
         return (
-            <div className="index">
+            <div className="canvas" ref='canvas'>
                 <BackgroundWhite>
                     <Header backLink='/'/>
                     <Loading on={this.state.loading}/>

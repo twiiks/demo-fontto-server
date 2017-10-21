@@ -16,19 +16,11 @@ export class DemoEnd extends Component {
         this.state = {
             loading: true,
             response: {}
-        }
+        };
         // Meteor.logout(); // 페이지 들어가면 로그아웃
     }
 
     componentDidMount() {
-        // console.log(this.props.location.state);
-        const requests = this.props.location.state;
-        const response = Meteor.call('dumyRequestToProcessingServer', requests);
-        this.setState({
-            response: response,
-            loading: false
-        });
-
         const script = document.createElement('script');
         script.src = '/js/disqus.js';
         script.async = true;

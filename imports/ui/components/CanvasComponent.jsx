@@ -17,6 +17,7 @@ export class CanvasComponent extends Component {
         };
         this.draw = this.draw.bind(this);
         this.onMouseDown = this.onMouseDown.bind(this);
+        this.onDrawEnd = this.onDrawEnd.bind(this);
     }
 
     canvas() {
@@ -38,6 +39,10 @@ export class CanvasComponent extends Component {
             lastX: e.nativeEvent.offsetX,
             lastY: e.nativeEvent.offsetY
         })
+    }
+
+    onDrawEnd(e) {
+        this.setState({isDrawing: false});
     }
 
     draw(e) {
@@ -69,8 +74,6 @@ export class CanvasComponent extends Component {
                     lastY: e.nativeEvent.offsetY
                 });
             }
-
-
         }
     }
 
@@ -97,12 +100,11 @@ export class CanvasComponent extends Component {
 
                                onTouchStart={this.onMouseDown}
                                onTouchMove={this.draw}
-                               onTouchEnd={() => this.setState({isDrawing: false})}
-
                                onMouseMove={this.draw}
                                onMouseDown={this.onMouseDown}
-                               onMouseUp={() => this.setState({isDrawing: false})}
-                               onMouseOut={() => this.setState({isDrawing: false})}/>
+                               onTouchEnd={this.onDrawEnd}
+                               onMouseUp={this.onDrawEnd}
+                               onMouseOut={this.onDrawEnd}/>
             </div>
         );
     }
