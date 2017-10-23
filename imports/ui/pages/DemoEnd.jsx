@@ -99,17 +99,17 @@ export class DemoEnd extends Component {
                             <br/>
                         </Description>
 
-                        <Separator text='fontto 가 만든 결과!'/>
+                        <Separator text='fontto 가 생성한 결과!'/>
                         <ImagesWrapper>
                             {resultImageTags}
                         </ImagesWrapper>
 
-                        <Separator text='여러분이 쓴 글자'/>
+                        <Separator text='여러분이 작성한 글자'/>
                         <ImagesWrapper>
                             {handwriteImageTags}
                         </ImagesWrapper>
 
-                        <Separator text='다른 분들이 만든 감사합니다들입니다!'/>
+                        <Separator text="다른 분들이 만든 '감사합니다'"/>
                         <ImagesWrapper>
                             {userImageTags}
                         </ImagesWrapper>

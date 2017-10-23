@@ -16,16 +16,6 @@ import {Email} from '../../ui/pages/Email';
 import {Canvas} from '../../ui/pages/Canvas';
 import {DemoEnd} from '../../ui/pages/DemoEnd';
 
-// Authentication
-// const authenticate = (nextState, replace) => {
-//     if (!Meteor.loggingIn() && !Meteor.userId()) {
-//         replace({
-//             pathname: '/login',
-//             state: {nextPathname: nextState.location.pathname},
-//         });
-//     }
-// };
-
 Meteor.startup(() => {
     injectTapEventPlugin();
     render(

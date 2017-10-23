@@ -130,7 +130,7 @@ class NextFontButton extends Component {
             <RaisedButton
                 fullWidth={true}
                 disabled={this.props.disabled}
-                onClick={this.props.onClick}
+                onTouchTap={this.props.onClick}
                 backgroundColor='#444444'
                 label='다음글자 작성하기 >'
                 labelColor='#ffffff'
@@ -148,7 +148,7 @@ class SubmitFontButton extends Component {
     render() {
         return (
             <RaisedButton
-                onClick={this.props.onClick}
+                onTouchTap={this.props.onClick}
                 backgroundColor='#444444'
                 disabled={this.props.disabled}
                 label={this.props.label}

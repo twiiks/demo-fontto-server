@@ -41,7 +41,7 @@ Meteor.methods({
         requests.env = environment;
         console.log(requests);
         request({
-            url: 'http://52.78.114.28/fontto/processing',
+            url: 'http://fontto-processing-elb-290747872.ap-northeast-2.elb.amazonaws.com/fontto/processing',
             method: 'POST',
             json: requests
         }, function(err, response, body){
