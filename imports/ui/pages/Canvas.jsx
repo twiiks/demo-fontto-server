@@ -116,7 +116,8 @@ export class Canvas extends Component {
     onSubmitFontButton() {
         const requests = {
             urls: this.state.imageUrlsWithUnicode,
-            count: Meteor.user().profile.count
+            count: Meteor.user().profile.count,
+            reuse_unicode: ['B2C8']
         };
 
         this.setState({
@@ -140,7 +141,6 @@ export class Canvas extends Component {
                     loading: false
                 });
             }.bind(this))
-
     }
 
 

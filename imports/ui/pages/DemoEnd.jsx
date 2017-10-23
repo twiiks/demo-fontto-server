@@ -49,13 +49,9 @@ export class DemoEnd extends Component {
 
         if (resultImages && handwriteImages) {
 
-            for(const i in this.state.targetKeys){
+            for (const i in this.state.targetKeys) {
                 const key = this.state.targetKeys[i];
-                if(handwriteImages[key]){
-                    resultImageTags.push(this.getImageTag(handwriteImages[key], key));
-                } else{
-                    resultImageTags.push(this.getImageTag(resultImages[key], key));
-                }
+                resultImageTags.push(this.getImageTag(resultImages[key], key));
             }
 
             Object.keys(handwriteImages).forEach(function (key) {
