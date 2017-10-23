@@ -11,8 +11,6 @@ import {
 export class Index extends Component {
     constructor(props) {
         super(props);
-
-        Meteor.call('resister', 'fontto@twiiks.co');
     }
 
     render() {
@@ -30,7 +28,7 @@ export class Index extends Component {
                             </Description>
 
                             <ButtonWrapper>
-                                <Link to='/demo/canvas'>
+                                <Link to='/demo/email'>
                                     <GoToEmailButton label='폰트 만들기 >'/>
                                 </Link>
                             </ButtonWrapper>

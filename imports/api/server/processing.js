@@ -6,7 +6,6 @@ import request from 'request';
 import Jimp from 'jimp';
 
 const environment = process.env.FONTTO_ENV;
-let processingIp = '';
 
 Meteor.methods({
     // requestToProcessingServer: function (filePaths) {
@@ -32,9 +31,24 @@ Meteor.methods({
     // },
 
     dumyRequestToProcessingServer: function (requests) {
-        console.log(reqeusts);
         const response = requests.urls;
+        console.log(response);
         return response;
+    },
+
+    requestToProcessingServer: function (requests) {
+        const f = new Future();
+        requests.env = environment;
+        console.log(requests);
+        request({
+            url: 'http://52.78.114.28/fontto/processing',
+            method: 'POST',
+            json: requests
+        }, function(err, response, body){
+            return f.return(body);
+        });
+
+        return f.wait();
     },
 
     resizeImage: function (imageBuffer) {

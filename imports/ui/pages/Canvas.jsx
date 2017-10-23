@@ -13,8 +13,6 @@ import {
     PercentInfoWrapper, Percent
 } from "../styles/pages/CanvasStyle";
 
-const environment = process.env.FONTTO_ENV;
-
 export class Canvas extends Component {
     constructor(props) {
         super(props);
@@ -24,19 +22,19 @@ export class Canvas extends Component {
             currentChar: 0,
             maxWidth: 600,
             loading: false,
-            toWriteFonts: '영원히끓을거라믿었던나의젊음돌아봤더니후회뿐',
+            toWriteFonts: '망나니',
             currentPercent: 0,
             writtenFonts: '',
             currentJob: '',
             imageUrlsWithUnicode: {},
             interval: 0,
             currentPercentGoal: 0,
-            fontCoverage: 0
+            fontCoverage: 0,
+            buttonDisabled: false
         };
         this.updateWindowDimensions =
             this.updateWindowDimensions.bind(this);
 
-        Meteor.loginWithPassword('fontto@twiiks.co', 'fontto'); // 페이지 들어가면 로그인
         Meteor.call('updateCount');
     }
 
@@ -59,7 +57,7 @@ export class Canvas extends Component {
 
     addProcess(percent) {
 
-        const time = Math.floor(Math.random() * 150) + 50;
+        const time = Math.floor(Math.random() * 10) + 50;
 
         this.setState({
             interval: setInterval(function () {
@@ -76,10 +74,7 @@ export class Canvas extends Component {
     toUnicode(str) {
         return str.split('').map(function (value, index, array) {
             var temp = value.charCodeAt(0).toString(16).toUpperCase();
-            if (temp.length > 2) {
-                return '0x' + temp;
-            }
-            return value;
+            return temp;
         }).join('');
     }
 
@@ -92,10 +87,10 @@ export class Canvas extends Component {
             loading: true,
             currentJob: '\'' + label + '\' 분석 중...!'
         });
-        const addGoal = Math.floor(Math.random() * 10) + 10;
+        const addGoal = Math.floor(Math.random() * 10) + 40;
         this.addProcess(this.state.currentPercentGoal + addGoal);
 
-        const unicodeLabel = this.toUnicode(label).toLowerCase();
+        const unicodeLabel = this.toUnicode(label);
 
         Meteor.call('resizeImage', imageBuffer, function (err, resizedBuffer) {
             this.setState({
@@ -119,15 +114,33 @@ export class Canvas extends Component {
     }
 
     onSubmitFontButton() {
+        const requests = {
+            urls: this.state.imageUrlsWithUnicode,
+            count: Meteor.user().profile.count
+        };
 
-        this.props.history.push({
-            pathname: '/demo/end',
-            state: {
-                urls: this.state.imageUrlsWithUnicode,
-                count: Meteor.user().profile.count,
-                env: environment
-            }
+        this.setState({
+            buttonDisabled: true,
+            loading: true
         });
+
+        Meteor.call('requestToProcessingServer', requests,
+            function (err, res) {
+                console.log(res);
+
+                this.props.history.push({
+                    pathname: '/demo/end',
+                    state: {
+                        urls: res,
+                        handwrites: requests.urls
+                    }
+                });
+
+                this.setState({
+                    loading: false
+                });
+            }.bind(this))
+
     }
 
 
@@ -147,9 +160,16 @@ export class Canvas extends Component {
             submitButtonDisabled = false;
         }
 
-        if (this.state.currentPercent > 70) {
+        if (this.state.currentPercent >= 100) {
             submitButtonDisabled = false;
         }
+
+        // 글자 생성하기 누르면 버튼 모두 disabled
+        if(this.state.buttonDisabled){
+            submitButtonDisabled = true;
+            nextButtonDisabled = true;
+        }
+
 
         // 캔버스 사이즈 조정
         let canvasSize;
@@ -198,11 +218,11 @@ export class Canvas extends Component {
         // submit label
         let submitLabel = '';
         if (this.state.currentJob === '') {
-            submitLabel = '70% 이상 시 글자 생성이 가능합니다.'
-        } else if (this.state.currentPercent < 70) {
+            submitLabel = '100% 시 글자 생성이 가능합니다.'
+        } else if (this.state.currentPercent < 100) {
             submitLabel = this.state.currentJob;
         } else {
-            submitLabel = '글자 생성하기'
+            submitLabel = '글자 생성하기 ( 2 ~ 5 분정도의 시간 소요 )'
         }
 
         return (

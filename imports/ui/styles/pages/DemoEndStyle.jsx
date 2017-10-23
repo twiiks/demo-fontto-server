@@ -46,7 +46,37 @@ const DemoEndWrapper = styled.div`
   margin: 20px 20px 10px 20px;
 `;
 
+class Separator extends Component {
+    render() {
+        return (
+            <div style={{
+                textAlign: 'center',
+                marginTop: 30
+            }}>
+                <div style={{
+                    height: 10,
+                    borderBottom: '1px solid #ccc',
+                    width: '15%',
+                    float: 'left',
+                    marginLeft: '10%'
+                }}/>
+                <div style={{
+                    height: 10,
+                    borderBottom: '1px solid #ccc',
+                    width: '15%',
+                    float: 'right',
+                    marginRight: '10%'
+                }}/>
+                <div style={{
+                    color: '#ccc'
+                }}>{this.props.text}</div>
+            </div>
+        )
+    }
+}
+
 export {
+    Separator,
     TitleUpper,
     Title,
     Description,
