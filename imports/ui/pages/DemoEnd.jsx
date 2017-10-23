@@ -5,7 +5,7 @@ import {Loading} from "../components/Loading";
 
 import {BackgroundWhite, Content, ContentWrapper} from "../styles/CommonStyle";
 import {
-    TitleUpper, Title, Separator,
+    TitleUpper, Title, Separator, PollButton,
     Description, ImagesWrapper, DisqusWrapper, DemoEndWrapper
 } from '../styles/pages/DemoEndStyle';
 
@@ -113,6 +113,13 @@ export class DemoEnd extends Component {
                         <ImagesWrapper>
                             {userImageTags}
                         </ImagesWrapper>
+
+                        <Separator text='fontto 설문조사에 참여해주세요! '/>
+                        <div style={{textAlign: 'center', color: '#999', marginBottom: 10}}>
+                            추첨을 통해 총 6분께 스타벅스 기프티콘을 드립니다!
+                        </div>
+                        <PollButton/>
+
                         <DisqusWrapper>
                             <div id="disqus_thread"/>
                         </DisqusWrapper>

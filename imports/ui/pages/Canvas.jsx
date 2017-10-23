@@ -85,7 +85,8 @@ export class Canvas extends Component {
 
         this.setState({
             loading: true,
-            currentJob: '\'' + label + '\' 분석 중...!'
+            currentJob: '\'' + label + '\' 분석 중...!',
+            buttonDisabled: true
         });
         const addGoal = Math.floor(Math.random() * 10) + 40;
         this.addProcess(this.state.currentPercentGoal + addGoal);
@@ -107,7 +108,8 @@ export class Canvas extends Component {
                         writtenFonts: this.state.writtenFonts + label,
                         currentChar: this.state.currentChar + 1,
                         loading: false,
-                        imageUrlsWithUnicode: appendUrlWithUnicode
+                        imageUrlsWithUnicode: appendUrlWithUnicode,
+                        buttonDisabled: false
                     });
                 }.bind(this));
         }.bind(this));

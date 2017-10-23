@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import styled, {keyframes} from 'styled-components';
-import {FlatButton} from 'material-ui';
+import {FlatButton, RaisedButton} from 'material-ui';
 
 import {fadeIn, fadeInUp} from 'react-animations'
 
@@ -51,7 +51,8 @@ class Separator extends Component {
         return (
             <div style={{
                 textAlign: 'center',
-                marginTop: 30
+                marginTop: 30,
+                marginBottom: 10
             }}>
                 <div style={{
                     height: 10,
@@ -75,7 +76,24 @@ class Separator extends Component {
     }
 }
 
+class PollButton extends Component {
+    render() {
+        return (
+            <RaisedButton
+                href='https://docs.google.com/forms/d/e/1FAIpQLSdl0CQXp4q18cfgk3DgJCoNH8mJNM3qdh9pXv5VwemdGz-s3A/viewform'
+                target='_blank'
+                backgroundColor='#444444'
+                label='스타벅스 기프티콘 받으러 가기!'
+                fullWidth={true}
+                labelColor='#ffffff'
+            />
+        )
+    }
+}
+
+
 export {
+    PollButton,
     Separator,
     TitleUpper,
     Title,
