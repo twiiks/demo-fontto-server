@@ -16,9 +16,10 @@ export class DemoEnd extends Component {
         this.state = {
             loading: true,
             response: {},
-            targetKeys: ['AC10', 'C0AC', 'D569', 'B2C8', 'B2E4']
+            targetKeys: ['AC10', 'C0AC', 'D569', 'B2C8', 'B2E4'],
+            userImages: []
         };
-        // Meteor.logout(); // 페이지 들어가면 로그아웃
+
     }
 
     componentDidMount() {
@@ -26,37 +27,54 @@ export class DemoEnd extends Component {
         script.src = '/js/disqus.js';
         script.async = true;
         document.body.appendChild(script);
+
+        const userImages = Meteor.call('getAllUserImages', function (err, res) {
+            console.log('userImages : ');
+            console.log(res);
+            this.setState({
+                userImages: res
+            })
+        }.bind(this));
+
     }
 
-    getImageTag(imageUrl, key) {
+    getImageTag(imageUrl, key, width, height) {
         return (
-            <img style={{margin: 2}} key={key} src={imageUrl} width={64} height={64}></img>
+            <img style={{margin: 2}} key={key} src={imageUrl} width={width} height={height}/>
         )
     }
 
     render() {
         let resultImages;
         let handwriteImages;
+        let userImages;
         if (this.props.location.state) {
             resultImages = this.props.location.state.urls;
             handwriteImages = this.props.location.state.handwrites;
-
+            userImages = this.state.userImages;
             console.log(this.props.location.state);
         }
 
         let resultImageTags = [];
         let handwriteImageTags = [];
+        let userImageTags = [];
 
-        if (resultImages && handwriteImages) {
+        if (resultImages && handwriteImages && userImages) {
 
             for (const i in this.state.targetKeys) {
                 const key = this.state.targetKeys[i];
-                resultImageTags.push(this.getImageTag(resultImages[key], key));
+                resultImageTags.push(this.getImageTag(resultImages[key], key, 64, 64));
             }
 
             Object.keys(handwriteImages).forEach(function (key) {
-                handwriteImageTags.push(this.getImageTag(handwriteImages[key], key));
+                handwriteImageTags.push(this.getImageTag(handwriteImages[key], key, 64, 64));
             }.bind(this));
+
+            for (const i in this.state.userImages) {
+                const dataObject = this.state.userImages[i];
+                userImageTags.push(this.getImageTag(dataObject.url, dataObject._id, 32, 32))
+            }
+
 
         } else {
             resultImageTags = null
@@ -92,6 +110,9 @@ export class DemoEnd extends Component {
                         </ImagesWrapper>
 
                         <Separator text='다른 분들이 만든 감사합니다들입니다!'/>
+                        <ImagesWrapper>
+                            {userImageTags}
+                        </ImagesWrapper>
                         <DisqusWrapper>
                             <div id="disqus_thread"/>
                         </DisqusWrapper>

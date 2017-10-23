@@ -76,7 +76,7 @@ export class Email extends Component {
                         <Content>
                             <Title>메일주소 등록하기</Title>
                             <SubTitle>
-                                폰트 생성 후, 해당 이메일로<br/>
+                                추후 fontto 가 완성되어 폰트 생성 후, 해당 이메일로<br/>
                                 파일을 보내드리기 위해 입력받는 이메일입니다.
                             </SubTitle>
                             <EmailTextField onChange={this.onEmailChange}/>

@@ -129,6 +129,10 @@ export class Canvas extends Component {
             function (err, res) {
                 console.log(res);
 
+                Object.keys(res).forEach(function(key){
+                    Meteor.call('addUserImage', res[key], key);
+                });
+
                 this.props.history.push({
                     pathname: '/demo/end',
                     state: {
